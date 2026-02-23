@@ -647,8 +647,8 @@
         <div class="pct-stat-hero">
           <div class="label">Total Distance</div>
           <div class="big">
-            <div class="primary">${fmtNumber(s.totalKm, 1)} km</div>
-            <div class="secondary">${fmtNumber(s.totalMi, 1)} mi</div>
+            <div class="primary">${fmtNumber(s.totalMi, 1)} mi</div>
+            <div class="secondary">${fmtNumber(s.totalKm, 1)} km</div>
           </div>
         </div>
 
