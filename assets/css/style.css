@@ -81,7 +81,7 @@ main.wrap{
   padding: 18px 18px;
   box-shadow: var(--shadow);
 }
-.card + .card{ margin-top: 14px; }
+.card + .card{ margin-top: 12px; }
 
 .card-title{
   font-weight:700;
