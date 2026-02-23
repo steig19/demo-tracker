@@ -16,14 +16,14 @@ permalink: /gear/
     <div class="lp-frame">
       <!-- Lighterpack embed -->
       <script src="https://lighterpack.com/r/2n8u4p"></script>
-      <div id="lm2int"></div>
+      <div id="2n8u4p"></div>
     </div>
   </div>
 </div>
 
 <script>
-  // Lighterpack rendert ein iframe nachträglich – wir warten kurz, bis es da ist,
-  // und setzen dann Styling am iframe-Element selbst (nicht im Inhalt).
+  // Lighterpack Renders an iframe afterwards – we wait briefly until it is there,
+  // and then set styling on the iframe element itself (not in the content).
   (function () {
     let tries = 0;
     const timer = setInterval(() => {
@@ -43,16 +43,16 @@ permalink: /gear/
 </script>
 
 <style>
-  /* Breite etwas reduzieren + “Luft” */
+  /* Reduce width a little + "air" */
   .lp-shell{
-    max-width: 980px;          /* enger als full width, aber noch groß */
+    max-width: 980px;          /* Narrower than full width, but still large */
     margin: 0 auto;
-    padding: 14px;             /* Luft zum Rand */
+    padding: 14px;             /* Air to the edge */
     background: rgba(255,255,255,0.03);
     border-radius: 16px;
   }
 
-  /* Off-white “Paper” Fläche, damit es nicht so gequetscht wirkt */
+  /* Off-white “Paper” Area, so that it doesn't look so squeezed */
   .lp-frame{
     background: #f6f3ea;       /* off-white / paper */
     border-radius: 14px;
@@ -61,20 +61,20 @@ permalink: /gear/
     border: 1px solid rgba(0,0,0,0.10);
   }
 
-  /* Das iframe selbst: Höhe + “helles” Aussehen erzwingen */
+  /* The iframe itself: force height + "bright" look */
   #lm2int iframe{
     width: 100% !important;
     height: 72vh !important;
     max-height: 900px !important;
     border-radius: 12px !important;
 
-    /* DER TRICK: macht dark -> light */
+    /* THE TRICK: makes dark -> light */
     filter: invert(1) hue-rotate(180deg);
     background: #fff;
     display: block;
   }
 
-  /* Auf sehr kleinen Screens etwas mehr Höhe */
+  /* A little more height on very small screens */
   @media (max-width: 520px){
     #lm2int iframe{ height: 78vh !important; }
     .lp-shell{ padding: 10px; }
