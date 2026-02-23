@@ -633,14 +633,14 @@
   }
 
   function setStatsUI(s) {
-    const elevMain = s.elevCount ? `${fmtInt(s.elevM)} m` : "—";
-    const elevSub = s.elevCount ? `${fmtInt(toFt(s.elevM))} ft` : "";
+    const elevMain = s.elevCount ? `${fmtInt(toFt(s.elevM))} ft` : "";
+    const elevSub = s.elevCount ? `${fmtInt(s.elevM)} m` : "—";
 
-    const avgDistMain = s.featsCount ? `${fmtNumber(s.avgDistPerActKm, 1)} km` : "—";
-    const avgDistSub = s.featsCount ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
+    const avgDistMain = s.featsCount ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
+    const avgDistSub = s.featsCount ? `${fmtNumber(s.avgDistPerActKm, 1)} km` : "—";
 
-    const avgSpeedMain = s.avgKmh ? `${fmtNumber(s.avgKmh, 1)} km/h` : "—";
-    const avgSpeedSub = s.avgMph ? `${fmtNumber(s.avgMph, 1)} mi/h` : "";
+    const avgSpeedMain = s.avgMph ? `${fmtNumber(s.avgMph, 1)} mi/h` : "";
+    /*const avgSpeedSub = s.avgKmh ? `${fmtNumber(s.avgKmh, 1)} km/h` : "—"; */
 
     statsListEl.innerHTML = `
       <div class="pct-stats-wrap">
@@ -688,8 +688,9 @@
     const miLine = `${fmtNumber(s.totalMi, 1)} mi of ${fmtInt(PCT_TOTAL_MI)} mi`;
     const pctLine = `${pctTxt} · ${kmLine} · ${miLine}`;
 
-    const remainingLine = `${fmtNumber(s.remainingKm, 1)} km / ${fmtNumber(s.remainingMi, 1)} mi`;
+    const remainingLine = `${fmtNumber(s.remainingMi, 1)} mi`;
     const pctWidth = Math.max(0, Math.min(100, Number.isFinite(s.pctCompleted) ? s.pctCompleted : 0));
+    /* ${fmtNumber(s.remainingKm, 1)} km / */
 
     // Timeline big (readable)
     const firstLine = s.firstTs ? new Date(s.firstTs).toLocaleDateString() : "—";
@@ -713,7 +714,6 @@
       return `
         <div class="pct-chip">
           <div class="label">${label}</div>
-          <div class="pct-day-km">${fmtNumber(km, 1)} km</div>
           <div class="pct-day-meta">${fmtNumber(mi, 1)} mi · ${time}</div>
           <div class="pct-day-date">${item.dateLabel}</div>
         </div>
@@ -727,24 +727,26 @@
           <div class="pct-rows">
             <div class="pct-row"><span>PCT completed</span><b>${pctLine}</b></div>
             <div class="pct-progressbar" aria-label="PCT progress">
-              <div class="pct-progressfill" style="width:${pctWidth}%;"></div>
+              <div class="pct-progressfill" style="width:${pctWidth}%;">
+              </div>
             </div>
-            <div class="pct-row" style="margin-top:6px;"><span>Remaining</span><b>${remainingLine}</b></div>
-          </div>
-
-          <div class="pct-section" style="margin-top:10px;">
-            <div class="pct-section-title">Timeline</div>
-            <div class="pct-rows">
-              <div class="pct-row"><span>First activity</span><b>${firstLine}</b></div>
-              <div class="pct-row"><span>Last activity</span><b>${lastLine}</b></div>
-              <div class="pct-row"><span>Days</span><b>${daysLine}</b></div>
+            <div class="pct-row" style="margin-top:6px;"><span>Remaining</span><b>${remainingLine}</b>
             </div>
           </div>
+        </div>
 
-          <div class="pct-daychips">
-            ${dayChipHTML("Longest Day", s.longest)}
-            ${dayChipHTML("Shortest Day", s.shortest)}
+        <div class="pct-section" style="margin-top:10px;">
+          <div class="pct-section-title">Timeline</div>
+          <div class="pct-rows">
+            <div class="pct-row"><span>First activity</span><b>${firstLine}</b></div>
+            <div class="pct-row"><span>Last activity</span><b>${lastLine}</b></div>
+            <div class="pct-row"><span>Days</span><b>${daysLine}</b></div>
           </div>
+        </div>
+
+        <div class="pct-daychips">
+          ${dayChipHTML("Longest Day", s.longest)}
+          ${dayChipHTML("Shortest Day", s.shortest)}
         </div>
       </div>
     `;
