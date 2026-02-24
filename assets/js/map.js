@@ -796,7 +796,10 @@
       if (metaEl) metaEl.textContent = "";
       if (statusExtraEl) statusExtraEl.textContent = "";
 
-      const [trackRaw, latest] = await Promise.all(...);
+      const [trackRaw, latest] = await Promise.all([
+        loadJson(trackUrl),
+        loadJson(latestUrl)
+      ]);
 
       const track = applyFilters(trackRaw);
 
