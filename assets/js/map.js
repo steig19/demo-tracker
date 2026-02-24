@@ -801,7 +801,8 @@
         loadJson(latestUrl)
       ]);
 
-      const track = applyFilters(trackRaw);
+      // backend already filtered by trail
+      const track = trackRaw;
 
       if (!map.getSource("track")) {
         injectUICSSOnce();
