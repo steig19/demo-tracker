@@ -213,6 +213,9 @@ def main():
         last = latlng[-1]
         latest = {"lat": last[0], "lon": last[1], "ts": a.get("start_date", "")}
 
+    if not track["features"]:
+    print("No activities matched trail window yet.")
+    
     # Re-index stable: nach start_date sortieren und i setzen
     track["features"].sort(key=lambda f: f.get("properties", {}).get("start_date", ""))
     for idx, f in enumerate(track["features"]):
