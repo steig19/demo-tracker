@@ -12,30 +12,23 @@ STATE_PATH = "data/strava_state.json"
 PROFILE_MAX_POINTS = 220
 
 
-import urllib.error
-
 def post_form(url, data):
     encoded = urllib.parse.urlencode(data).encode("utf-8")
     req = urllib.request.Request(url, data=encoded, method="POST")
-    try:
-        with urllib.request.urlopen(req) as r:
-            return json.loads(r.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body = e.read().decode("utf-8", errors="replace")
-        print("HTTPError", e.code, "for", url)
-        print("Response body:", body)
-        raise
+    with urllib.request.urlopen(req) as r:
+        return json.loads(r.read().decode("utf-8"))
+
 
 def get_json(url, headers=None):
-    req = urllib.request.Request(url, headers=headers or {})
     try:
+        req = urllib.request.Request(url, headers=headers or {})
         with urllib.request.urlopen(req) as r:
             return json.loads(r.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body = e.read().decode("utf-8", errors="replace")
-        print("HTTPError", e.code, "for", url)
-        print("Response body:", body)
-        raise
+    except Exception as e:
+        print("\nREQUEST FAILED:")
+        print(url)
+        print(e)
+        return {}
 
 
 def refresh_access_token():
@@ -111,8 +104,13 @@ def main():
 
         streams = get_stream(access, act_id)
 
+        if not streams or "latlng" not in streams:
+            print(f"No streams for activity {act_id}")
+            continue
+
         latlng = streams.get("latlng", {}).get("data", [])
         if not latlng or len(latlng) < 2:
+            print(f"No GPS data for activity {act_id}")
             continue
 
         altitude = streams.get("altitude", {}).get("data", [])
