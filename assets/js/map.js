@@ -581,7 +581,12 @@
 
     runOnce();
   }
-
+  
+  if (!track.features || track.features.length === 0) {
+    console.warn("No activities in current trail window yet.");
+    return;
+  }
+  
   function computeStats(track) {
     const feats = (track && track.features) ? track.features : [];
     let distM = 0, timeS = 0, elevM = 0, elevCount = 0;
