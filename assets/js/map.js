@@ -618,7 +618,7 @@
 
     const avgDistPerActMi = feats.length ? (totalMi / feats.length) : null;
     const avgDistPerActKm = feats.length ? (totalKm / feats.length) : null;
-
+    /* removed avgKmh, <div class="sub">${avgSpeedSub}</div> */
     return {
       featsCount: feats.length,
       distM, timeS, elevM, elevCount,
@@ -626,8 +626,7 @@
       firstTs, lastTs, activeDays, restDays,
       pctCompleted, remainingMi, remainingKm,
       avgDistPerActMi, avgDistPerActKm,
-      avgMph, avgKmh,
-      longest,
+      avgMph, longest,
       shortest
     };
   }
@@ -674,7 +673,6 @@
           <div class="pct-chip">
             <div class="label">Avg Speed</div>
             <div class="value">${avgSpeedMain}</div>
-            <div class="sub">${avgSpeedSub}</div>
           </div>
         </div>
       </div>
