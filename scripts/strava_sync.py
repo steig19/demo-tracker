@@ -1,15 +1,34 @@
+from datetime import datetime, timezone
 import os, json, math, urllib.request, urllib.parse
 
 CLIENT_ID = os.environ["STRAVA_CLIENT_ID"]
 CLIENT_SECRET = os.environ["STRAVA_CLIENT_SECRET"]
 REFRESH_TOKEN = os.environ["STRAVA_REFRESH_TOKEN"]
 
+# -------- ACTIVE THRU-HIKE CONFIG --------
+
+TRAIL_NAME = "Pacific Crest Trail"
+
+TRAIL_START = datetime(2026, 4, 19, tzinfo=timezone.utc)
+TRAIL_END   = None  # or datetime(2026, 9, 30, tzinfo=timezone.utc)
+
+ALLOWED_TYPES = {"Hike", "Walk"}  # safest Strava combo
+
 TRACK_PATH = "data/track.geojson"
 LATEST_PATH = "data/latest.json"
 STATE_PATH = "data/strava_state.json"
 
-# Wie viele Punkte fürs Höhenprofil maximal gespeichert werden (Dateigröße!)
 PROFILE_MAX_POINTS = 220
+
+def iso_to_ts(iso_str):
+    try:
+        return int(
+            datetime.fromisoformat(iso_str.replace("Z", "+00:00"))
+            .astimezone(timezone.utc)
+            .timestamp()
+        )
+    except Exception:
+        return None
 
 
 def post_form(url, data):
@@ -100,6 +119,22 @@ def main():
     kept_ids = []
 
     for a in activities:
+        # --- date filter ---
+        ts = iso_to_ts(a.get("start_date"))
+        if ts is None:
+            continue
+
+        if ts < int(TRAIL_START.timestamp()):
+            continue
+
+        if TRAIL_END and ts > int(TRAIL_END.timestamp()):
+            continue
+
+        # --- type filter ---
+        act_type = str(a.get("type", ""))
+        if act_type not in ALLOWED_TYPES:
+            continue
+
         act_id = int(a["id"])
 
         streams = get_stream(access, act_id)
