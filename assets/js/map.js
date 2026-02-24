@@ -19,7 +19,7 @@
   const MI_PER_M = 0.000621371;
   const FT_PER_M = 3.28084;
 
-  const PCT_TOTAL_MI = 2650;
+  const PCT_TOTAL_MI = 2655.8;
   const PCT_TOTAL_KM = PCT_TOTAL_MI * 1.609344;
 
   function fmtNumber(n, digits = 1) {
@@ -682,10 +682,10 @@
   function setInsightsUI(s) {
     // Progress line: "2.8% · 118.1 km of 4,265 km · 73.4 mi of 2,650 mi"
     const pctTxt = Number.isFinite(s.pctCompleted) ? `${fmtNumber(s.pctCompleted, 1)}%` : "—%";
-    const kmLine = `${fmtNumber(s.totalKm, 1)} km of ${fmtInt(PCT_TOTAL_KM)} km`;
+    /* const kmLine = `${fmtNumber(s.totalKm, 1)} km of ${fmtInt(PCT_TOTAL_KM)} km`; */
     const miLine = `${fmtNumber(s.totalMi, 1)} mi of ${fmtInt(PCT_TOTAL_MI)} mi`;
-    const pctLine = `${pctTxt} · ${kmLine} · ${miLine}`;
-
+    const pctLine = `${pctTxt} · ${miLine}`;
+    /* minus ${kmLine} from pctLine */
     const remainingLine = `${fmtNumber(s.remainingMi, 1)} mi`;
     const pctWidth = Math.max(0, Math.min(100, Number.isFinite(s.pctCompleted) ? s.pctCompleted : 0));
     /* ${fmtNumber(s.remainingKm, 1)} km / */
