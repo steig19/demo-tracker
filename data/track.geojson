@@ -1,5 +1,0 @@
-track["properties"] = {
-    "trail": TRAIL_NAME,
-    "start": TRAIL_START.isoformat(),
-    "end": TRAIL_END.isoformat() if TRAIL_END else None
-}
