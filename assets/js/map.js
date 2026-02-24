@@ -15,13 +15,42 @@
   const latestUrl = new URL("./data/latest.json", window.location.href).toString();
 
   // ---------- helpers ----------
-  const KM_PER_M = 0.001;
   const MI_PER_M = 0.000621371;
   const FT_PER_M = 3.28084;
 
-  const PCT_TOTAL_MI = 2655.8;
+  const PCT_TOTAL_MI = 2655;
   const PCT_TOTAL_KM = PCT_TOTAL_MI * 1.609344;
 
+  let filterState = {
+  start: null,   // timestamp
+  end: null,     // timestamp
+  types: new Set(["Hike", "Walk"])  // robust default for Strava
+};
+  function applyFilters(track) { 
+    const feats = track.features || [];
+
+    const filtered = feats.filter(f => {
+      const p = f.properties || {};
+
+      // Activity type filter
+      const type = (p.type || "").toString();
+      if (!filterState.types.has(type)) return false;
+
+      // Date filter
+      if (filterState.start || filterState.end) {
+        const ts = Date.parse(p.start_date);
+        if (!Number.isFinite(ts)) return false;
+
+        if (filterState.start && ts < filterState.start) return false;
+        if (filterState.end && ts > filterState.end) return false;
+      }
+
+      return true;
+    });
+
+    return { ...track, features: filtered };
+  }
+  
   function fmtNumber(n, digits = 1) {
     if (!Number.isFinite(n)) return "—";
     return n.toLocaleString(undefined, {
@@ -474,9 +503,8 @@
     const time = Number.isFinite(tSec) ? fmtDuration(tSec) : "—";
 
     const elevM = pickElevationMeters(props);
-    const elevStr = elevM == null ? "—" : `${fmtInt(elevM)} m / ${fmtInt(toFt(elevM))} ft`;
-
-    const distStr = (km == null || mi == null) ? "—" : `${fmtNumber(km, 1)} km / ${fmtNumber(mi, 1)} mi`;
+    const distStr = mi == null ? "—" : `${fmtNumber(mi, 1)} mi`;
+    const elevStr = elevM == null ? "—" : `${fmtInt(toFt(elevM))} ft`;
 
     return `
       <div class="pct-popup">
@@ -633,13 +661,12 @@
 
   function setStatsUI(s) {
     const elevMain = s.elevCount ? `${fmtInt(toFt(s.elevM))} ft` : "";
-    const elevSub = s.elevCount ? `${fmtInt(s.elevM)} m` : "—";
+    const elevSub = "";
 
     const avgDistMain = s.featsCount ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
-    const avgDistSub = s.featsCount ? `${fmtNumber(s.avgDistPerActKm, 1)} km` : "—";
+    const avgDistSub = "";
 
     const avgSpeedMain = s.avgMph ? `${fmtNumber(s.avgMph, 1)} mi/h` : "";
-    /*const avgSpeedSub = s.avgKmh ? `${fmtNumber(s.avgKmh, 1)} km/h` : "—"; */
 
     statsListEl.innerHTML = `
       <div class="pct-stats-wrap">
@@ -647,15 +674,13 @@
           <div class="label">Total Distance</div>
           <div class="big">
             <div class="primary">${fmtNumber(s.totalMi, 1)} mi</div>
-            <div class="secondary">${fmtNumber(s.totalKm, 1)} km</div>
           </div>
         </div>
 
         <div class="pct-chip-grid">
           <div class="pct-chip">
-            <div class="label">Total Elevation</div>
+            <div class="label">Total Elevation Gain</div>
             <div class="value">${elevMain}</div>
-            <div class="sub">${elevSub}</div>
           </div>
 
           <div class="pct-chip">
@@ -665,13 +690,12 @@
           </div>
 
           <div class="pct-chip">
-            <div class="label">Avg Distance / Activity</div>
+            <div class="label">Avg Miles / Day</div>
             <div class="value">${avgDistMain}</div>
-            <div class="sub">${avgDistSub}</div>
           </div>
 
           <div class="pct-chip">
-            <div class="label">Avg Speed</div>
+            <div class="label">Avg Pace (mi/hr)</div>
             <div class="value">${avgSpeedMain}</div>
           </div>
         </div>
@@ -680,12 +704,10 @@
   }
 
   function setInsightsUI(s) {
-    // Progress line: "2.8% · 118.1 km of 4,265 km · 73.4 mi of 2,650 mi"
+    // Progress line: "2.8% · 73.4 mi of 2,650 mi"
     const pctTxt = Number.isFinite(s.pctCompleted) ? `${fmtNumber(s.pctCompleted, 1)}%` : "—%";
-    /* const kmLine = `${fmtNumber(s.totalKm, 1)} km of ${fmtInt(PCT_TOTAL_KM)} km`; */
     const miLine = `${fmtNumber(s.totalMi, 1)} mi of ${fmtInt(PCT_TOTAL_MI)} mi`;
     const pctLine = `${pctTxt} · ${miLine}`;
-    /* minus ${kmLine} from pctLine */
     const remainingLine = `${fmtNumber(s.remainingMi, 1)} mi`;
     const pctWidth = Math.max(0, Math.min(100, Number.isFinite(s.pctCompleted) ? s.pctCompleted : 0));
     /* ${fmtNumber(s.remainingKm, 1)} km / */
@@ -706,7 +728,6 @@
           </div>
         `;
       }
-      const km = toKm(item.distM);
       const mi = toMi(item.distM);
       const time = item.timeS != null ? fmtDuration(item.timeS) : "—";
       return `
@@ -770,7 +791,9 @@
       if (metaEl) metaEl.textContent = "";
       if (statusExtraEl) statusExtraEl.textContent = "";
 
-      const [track, latest] = await Promise.all([loadJson(trackUrl), loadJson(latestUrl)]);
+      const [trackRaw, latest] = await Promise.all(...);
+
+      const track = applyFilters(trackRaw);
 
       if (!map.getSource("track")) {
         injectUICSSOnce();
