@@ -737,7 +737,7 @@
         <div class="pct-section">
           <div class="pct-section-title">Progress</div>
           <div class="pct-rows">
-            <div class="pct-row"><span>PCT completed</span><b>${pctLine}</b></div>
+            <div class="pct-row"><span>IAT completed</span><b>${pctLine}</b></div>
             <div class="pct-progressbar" aria-label="IAT progress">
               <div class="pct-progressfill" style="width:${pctWidth}%;">
               </div>
