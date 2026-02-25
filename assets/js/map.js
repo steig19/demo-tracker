@@ -496,7 +496,6 @@
     const start = props.start_date ? fmtDate(props.start_date) : "—";
 
     const distM = Number(props.distance_m);
-    const km = Number.isFinite(distM) ? toKm(distM) : null;
     const mi = Number.isFinite(distM) ? toMi(distM) : null;
 
     const tSec = Number(props.moving_time_s);
