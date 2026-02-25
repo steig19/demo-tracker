@@ -18,7 +18,7 @@
   const MI_PER_M = 0.000621371;
   const FT_PER_M = 3.28084;
 
-  const PCT_TOTAL_MI = 2655;
+  const PCT_TOTAL_MI = 1158;
 
   let currentTrack = null;
   
@@ -738,7 +738,7 @@
           <div class="pct-section-title">Progress</div>
           <div class="pct-rows">
             <div class="pct-row"><span>PCT completed</span><b>${pctLine}</b></div>
-            <div class="pct-progressbar" aria-label="PCT progress">
+            <div class="pct-progressbar" aria-label="IAT progress">
               <div class="pct-progressfill" style="width:${pctWidth}%;">
               </div>
             </div>
