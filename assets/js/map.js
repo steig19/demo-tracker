@@ -19,8 +19,9 @@
   const FT_PER_M = 3.28084;
 
   const PCT_TOTAL_MI = 2655;
-  const PCT_TOTAL_KM = PCT_TOTAL_MI * 1.609344;
 
+  let currentTrack = null;
+  
   let filterState = {
   start: null,   // timestamp
   end: null,     // timestamp
@@ -89,7 +90,6 @@
     return parts.join(" ");
   }
 
-  function toKm(m) { return m * KM_PER_M; }
   function toMi(m) { return m * MI_PER_M; }
   function toFt(m) { return m * FT_PER_M; }
 
@@ -582,11 +582,6 @@
     runOnce();
   }
   
-  if (!track.features || track.features.length === 0) {
-    console.warn("No activities in current trail window yet.");
-    return;
-  }
-  
   function computeStats(track) {
     const feats = (track && track.features) ? track.features : [];
     let distM = 0, timeS = 0, elevM = 0, elevCount = 0;
@@ -638,28 +633,22 @@
       restDays = Math.max(0, span - activeDays);
     }
 
-    const totalKm = toKm(distM);
     const totalMi = toMi(distM);
 
     const hours = timeS / 3600;
     const avgMph = (hours > 0) ? (totalMi / hours) : null;
-    const avgKmh = (hours > 0) ? (totalKm / hours) : null;
 
     const pctCompleted = (totalMi / PCT_TOTAL_MI) * 100;
     const remainingMi = Math.max(0, PCT_TOTAL_MI - totalMi);
-    const remainingKm = remainingMi * 1.609344;
 
     const avgDistPerActMi = feats.length ? (totalMi / feats.length) : null;
-    const avgDistPerActKm = feats.length ? (totalKm / feats.length) : null;
-    /* removed avgKmh, <div class="sub">${avgSpeedSub}</div> */
     return {
       featsCount: feats.length,
       distM, timeS, elevM, elevCount,
-      totalKm, totalMi,
+      totalMi,
       firstTs, lastTs, activeDays, restDays,
-      pctCompleted, remainingMi, remainingKm,
-      avgDistPerActMi, avgDistPerActKm,
-      avgMph, longest,
+      pctCompleted, remainingMi, 
+      avgDistPerActMi, avgMph, longest,
       shortest
     };
   }
@@ -715,7 +704,6 @@
     const pctLine = `${pctTxt} · ${miLine}`;
     const remainingLine = `${fmtNumber(s.remainingMi, 1)} mi`;
     const pctWidth = Math.max(0, Math.min(100, Number.isFinite(s.pctCompleted) ? s.pctCompleted : 0));
-    /* ${fmtNumber(s.remainingKm, 1)} km / */
 
     // Timeline big (readable)
     const firstLine = s.firstTs ? new Date(s.firstTs).toLocaleDateString() : "—";
@@ -802,7 +790,8 @@
       ]);
 
       // backend already filtered by trail
-      const track = trackRaw;
+      currentTrack = trackRaw;
+      const track = currentTrack; // optional local alias
 
       if (!map.getSource("track")) {
         injectUICSSOnce();
@@ -896,12 +885,15 @@
 
       // marker
       const lngLat = [latest.lon, latest.lat];
-      if (!marker) {
-        marker = new maplibregl.Marker({ element: createBlinkMarkerEl() })
-          .setLngLat(lngLat)
-          .addTo(map);
-      } else {
-        marker.setLngLat(lngLat);
+      if (latest && Number.isFinite(latest.lat) && Number.isFinite(latest.lon)) {
+        const lngLat = [latest.lon, latest.lat];
+        if (!marker) {
+          marker = new maplibregl.Marker({ element: createBlinkMarkerEl() })
+            .setLngLat(lngLat)
+            .addTo(map);
+        } else {
+          marker.setLngLat(lngLat);
+        }
       }
 
       const s = computeStats(track);
