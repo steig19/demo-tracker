@@ -583,6 +583,8 @@
   
   function computeStats(track) {
     const feats = (track && track.features) ? track.features : [];
+    const MIN_DAY_MILES = 1;
+    const MIN_DAY_M = MIN_DAY_MILES / MI_PER_M;
     let distM = 0, timeS = 0, elevM = 0, elevCount = 0;
     const days = new Set();
     let firstTs = null, lastTs = null;
@@ -613,7 +615,7 @@
         }
       }
 
-      if (Number.isFinite(d) && d > 0) {
+      if (Number.isFinite(d) && d >= MIN_DAY_M) {
         const dateLabel = sd ? fmtDateShort(sd) : "—";
         const item = {
           distM: d,
