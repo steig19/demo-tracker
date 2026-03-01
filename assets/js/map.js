@@ -622,15 +622,9 @@
           timeS: Number.isFinite(t) ? t : null,
           dateLabel
         };
-        // longest always allowed
-        if (!longest || d > longest.distM) {
-        longest = item;
-        }
-
-        // shortest: ignore zero / invalid distances
-        if (!shortest || (d > 0 && d < shortest.distM)) {
-        shortest = item;
-        }
+        if (!longest || d > longest.distM) longest = item;
+        if (!shortest || d < shortest.distM) shortest = item;
+      }
     }
 
     const activeDays = days.size;
