@@ -1,0 +1,15 @@
+{
+  "trailId": "ice-age-trail-2025",
+  "name": "Ice Age Trail",
+  "startDate": "2025-08-03",
+  "endDate": "2025-10-18",
+
+  "units": "imperial",
+
+  "stats": {
+    "minDayMiles": 8,
+    "rollingAvgDays": 7,
+    "includeNeroInCalendarAvg": true,
+    "includeZeroDaysInCalendarAvg": true
+  }
+}
