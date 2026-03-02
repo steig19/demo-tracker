@@ -734,7 +734,7 @@
     const elevMain = "—";;
     const elevSub = "";
 
-    const avgDistMain = s.featsCount ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
+    const avgDistMain = stats.days.trail ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
     const avgDistSub = "";
     const hours = stats.totals.timeSeconds / 3600;
     const avgSpeedMain = hours > 0 ? `${fmtNumber(stats.totals.miles / hours, 1)} mi/h` : "—";
