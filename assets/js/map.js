@@ -7,6 +7,9 @@
   const heroEl = document.querySelector(".hero");
   if (heroEl) heroEl.remove();
 
+  const statsListEl = document.getElementById("statsList");
+  const insightsListEl = document.getElementById("insightsList");
+
   // URLs
   const trackUrl = new URL("./data/track.geojson", window.location.href).toString();
   const latestUrl = new URL("./data/latest.json", window.location.href).toString();
@@ -166,6 +169,7 @@
   }
 
   function setStatsUI(stats) {
+    if (!statsListEl) return;
     if (!stats || !statsListEl) return;
 
     const miles = stats.totals.miles;
@@ -217,6 +221,7 @@
   }
 
   function setInsightsUI(stats) {
+    if (!insightsListEl) return;
     if (!stats || !insightsListEl) return;
 
     const pctCompleted = (stats.totals.miles / PCT_TOTAL_MI) * 100;
