@@ -731,7 +731,7 @@
   }
 
   function setStatsUI(s) {
-    const elevMain = s.elevCount ? `${fmtInt(toFt(s.elevM))} ft` : "";
+    const elevMain = "—";;
     const elevSub = "";
 
     const avgDistMain = s.featsCount ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
