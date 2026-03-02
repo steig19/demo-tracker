@@ -163,7 +163,7 @@
       lastTs
     }
   };
-
+  }
 
   function setStatsUI(stats) {
     if (!stats || !statsListEl) return;
