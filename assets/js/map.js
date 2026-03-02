@@ -738,6 +738,9 @@
     const avgDistSub = "";
     const hours = s.totals.timeSeconds / 3600;
     const avgSpeedMain = hours > 0 ? `${fmtNumber(s.totals.miles / hours, 1)} mi/h` : "—";
+    const pctCompleted = (s.totals.miles / PCT_TOTAL_MI) * 100;
+    const s.avgDistPerActMi = s.averages.milesPerTrailDay;
+    const s.remainingMi = PCT_TOTAL_MI - s.totals.miles;
 
 
     statsListEl.innerHTML = `
@@ -786,7 +789,7 @@
     // Timeline big (readable)
     const firstLine = s.timeline.firstTs ? new Date(s.timeline.firstTs).toLocaleDateString() : "—";
     const lastLine = s.timeline.lastTs ? new Date(s.timeline.lastTs).toLocaleDateString() : "—";
-    const daysLine = `${stats.days.trail || 0} trail days · ${stats.days.rest} rest days` : ""}`;
+    const daysLine = `${s.days.trail || 0} trail days · ${s.days.rest || 0} rest days`;
 
     function dayChipHTML(label, item) {
       if (!item) {
