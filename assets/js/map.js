@@ -163,9 +163,9 @@
       lastTs
     }
   };
-}
 
-    function setStatsUI(stats) {
+
+  function setStatsUI(stats) {
     if (!stats || !statsListEl) return;
 
     const miles = stats.totals.miles;
@@ -216,7 +216,7 @@
     `;
   }
 
-    function setInsightsUI(stats) {
+  function setInsightsUI(stats) {
     if (!stats || !insightsListEl) return;
 
     const pctCompleted = (stats.totals.miles / PCT_TOTAL_MI) * 100;
@@ -295,6 +295,7 @@
       </div>
     `;
   }
+
 
   function loadJson(url) {
     return fetch(url, { cache: "no-store" })
