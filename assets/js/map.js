@@ -734,10 +734,10 @@
     const elevMain = "—";;
     const elevSub = "";
 
-    const avgDistMain = stats.days.trail ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
+    const avgDistMain = s.days.trail ? `${fmtNumber(s.avgDistPerActMi, 1)} mi` : "";
     const avgDistSub = "";
-    const hours = stats.totals.timeSeconds / 3600;
-    const avgSpeedMain = hours > 0 ? `${fmtNumber(stats.totals.miles / hours, 1)} mi/h` : "—";
+    const hours = s.totals.timeSeconds / 3600;
+    const avgSpeedMain = hours > 0 ? `${fmtNumber(s.totals.miles / hours, 1)} mi/h` : "—";
 
 
     statsListEl.innerHTML = `
@@ -745,7 +745,7 @@
         <div class="pct-stat-hero">
           <div class="label">Total Distance</div>
           <div class="big">
-            <div class="primary">${fmtNumber(stats.totals.miles, 1)} mi</div>
+            <div class="primary">${fmtNumber(s.totals.miles, 1)} mi</div>
           </div>
         </div>
 
@@ -757,8 +757,8 @@
 
           <div class="pct-chip">
             <div class="label">Total Time</div>
-            <div class="value">${fmtDuration(stats.totals.timeSeconds)}</div>
-            <div class="sub">${stats.days.trail} trail days</div>
+            <div class="value">${fmtDuration(s.totals.timeSeconds)}</div>
+            <div class="sub">${s.days.trail} trail days</div>
           </div>
 
           <div class="pct-chip">
@@ -778,14 +778,14 @@
   function setInsightsUI(s) {
     // Progress line: "2.8% · 73.4 mi of 2,650 mi"
     const pctTxt = Number.isFinite(s.pctCompleted) ? `${fmtNumber(s.pctCompleted, 1)}%` : "—%";
-    const miLine = `${fmtNumber(stats.totals.miles, 1)} mi of ${fmtInt(PCT_TOTAL_MI)} mi`;
+    const miLine = `${fmtNumber(s.totals.miles, 1)} mi of ${fmtInt(PCT_TOTAL_MI)} mi`;
     const pctLine = `${pctTxt} · ${miLine}`;
     const remainingLine = `${fmtNumber(s.remainingMi, 1)} mi`;
     const pctWidth = Math.max(0, Math.min(100, Number.isFinite(s.pctCompleted) ? s.pctCompleted : 0));
 
     // Timeline big (readable)
-    const firstLine = stats.timeline.firstTs ? new Date(stats.timeline.firstTs).toLocaleDateString() : "—";
-    const lastLine = stats.timeline.lastTs ? new Date(stats.timeline.lastTs).toLocaleDateString() : "—";
+    const firstLine = s.timeline.firstTs ? new Date(s.timeline.firstTs).toLocaleDateString() : "—";
+    const lastLine = s.timeline.lastTs ? new Date(s.timeline.lastTs).toLocaleDateString() : "—";
     const daysLine = `${stats.days.trail || 0} trail days · ${stats.days.rest} rest days` : ""}`;
 
     function dayChipHTML(label, item) {
@@ -835,8 +835,8 @@
         </div>
 
         <div class="pct-daychips">
-          ${dayChipHTML("Longest Day", stats.extremes.longestDay)}
-          ${dayChipHTML("Shortest Day", stats.extremes.shortestDay)}
+          ${dayChipHTML("Longest Day", s.extremes.longestDay)}
+          ${dayChipHTML("Shortest Day", s.extremes.shortestDay)}
         </div>
       </div>
     `;
@@ -871,8 +871,8 @@
       currentTrack = trackRaw;
       const track = currentTrack;
       const stats = computeStats(currentTrack, trailConfig);
-      setStatsUI(stats);
-      setInsightsUI(stats);
+      setStatsUI(s);
+      setInsightsUI(s);
 
       if (!map.getSource("track")) {
         injectUICSSOnce();
