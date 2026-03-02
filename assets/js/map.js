@@ -11,6 +11,7 @@
   const statsListEl = document.getElementById("statsList");
   const insightsListEl = document.getElementById("insightsList");
 
+  const trailConfigUrl = new URL("./data/trail.json", window.location.href).toString();
   const trackUrl = new URL("./data/track.geojson", window.location.href).toString();
   const latestUrl = new URL("./data/latest.json", window.location.href).toString();
 
@@ -860,14 +861,16 @@
       if (metaEl) metaEl.textContent = "";
       if (statusExtraEl) statusExtraEl.textContent = "";
 
-      const [trackRaw, latest] = await Promise.all([
+      const [trackRaw, latest, trailConfig] = await Promise.all([
         loadJson(trackUrl),
-        loadJson(latestUrl)
+        loadJson(latestUrl),
+        loadJson(trailConfigUrl)
       ]);
 
-      // backend already filtered by trail
       currentTrack = trackRaw;
-      const track = currentTrack; // optional local alias
+      const stats = computeStats(currentTrack, trailConfig);
+      setStatsUI(stats);
+      setInsightsUI(stats);
 
       if (!map.getSource("track")) {
         injectUICSSOnce();
