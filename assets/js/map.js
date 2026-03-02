@@ -30,6 +30,20 @@
     });
   }   
 
+  function fmtDuration(totalSeconds) {
+    if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return "—";
+    const sec = Math.floor(totalSeconds);
+    const days = Math.floor(sec / 86400);
+    const hrs = Math.floor((sec % 86400) / 3600);
+    const mins = Math.floor((sec % 3600) / 60);
+
+    const parts = [];
+    if (days > 0) parts.push(`${days} Day${days === 1 ? "" : "s"}`);
+    if (hrs > 0) parts.push(`${hrs} h`);
+    parts.push(`${mins} min`);
+    return parts.join(" ");
+  }
+
   function computeStats(track) {
     const MI_PER_M = 0.000621371;
 
