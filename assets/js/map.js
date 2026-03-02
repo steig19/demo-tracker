@@ -22,6 +22,14 @@
     catch { return "—"; }
   }
 
+  function fmtNumber(n, digits = 1) {
+    if (!Number.isFinite(n)) return "—";
+    return n.toLocaleString(undefined, {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits
+    });
+  }   
+
   function computeStats(track) {
     const MI_PER_M = 0.000621371;
 
