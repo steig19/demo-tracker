@@ -20,149 +20,149 @@
   }
 
   function computeStats(track) {
-  const MI_PER_M = 0.000621371;
+    const MI_PER_M = 0.000621371;
 
-  // --- configuration (safe defaults for now) ---
-  const MIN_DAY_MILES = 8;        // below this = Nero
-  const ROLLING_DAYS = 7;
+    // --- configuration (safe defaults for now) ---
+    const MIN_DAY_MILES = 8;        // below this = Nero
+    const ROLLING_DAYS = 7;
 
-  const feats = track?.features ?? [];
+    const feats = track?.features ?? [];
 
-  // -------------------------------
-  // 1. Aggregate activities by day
-  // -------------------------------
-  const daysMap = new Map();
-  let firstTs = null;
-  let lastTs = null;
+    // -------------------------------
+    // 1. Aggregate activities by day
+    // -------------------------------
+    const daysMap = new Map();
+    let firstTs = null;
+    let lastTs = null;
 
-  for (const f of feats) {
-    const p = f.properties || {};
-    const distM = Number(p.distance_m);
-    const timeS = Number(p.moving_time_s || 0);
-    const start = p.start_date;
+    for (const f of feats) {
+      const p = f.properties || {};
+      const distM = Number(p.distance_m);
+      const timeS = Number(p.moving_time_s || 0);
+      const start = p.start_date;
 
-    if (!start || !Number.isFinite(distM)) continue;
+      if (!start || !Number.isFinite(distM)) continue;
 
-    const dayKey = start.slice(0, 10); // YYYY-MM-DD
-    const ts = Date.parse(dayKey);
+      const dayKey = start.slice(0, 10); // YYYY-MM-DD
+      const ts = Date.parse(dayKey);
 
-    if (Number.isFinite(ts)) {
-      if (firstTs === null || ts < firstTs) firstTs = ts;
-      if (lastTs === null || ts > lastTs) lastTs = ts;
-    }
-
-    const entry = daysMap.get(dayKey) || { distM: 0, timeS: 0 };
-    entry.distM += distM;
-    entry.timeS += timeS;
-    daysMap.set(dayKey, entry);
-  }
-
-  // -------------------------------
-  // 2. Walk calendar days
-  // -------------------------------
-  let trailDays = 0;
-  let neroDays = 0;
-  let zeroDays = 0;
-  let restDays = 0;
-
-  let totalDistM = 0;
-  let totalTimeS = 0;
-
-  let longestDay = null;
-  let shortestDay = null;
-
-  const trailDayMiles = [];
-  const calendarMiles = [];
-
-  if (firstTs !== null && lastTs !== null) {
-    for (let ts = firstTs; ts <= lastTs; ts += 86400000) {
-      const dayKey = new Date(ts).toISOString().slice(0, 10);
-      const entry = daysMap.get(dayKey);
-
-      const distM = entry ? entry.distM : 0;
-      const timeS = entry ? entry.timeS : 0;
-      const miles = distM * MI_PER_M;
-
-      if (distM === 0) {
-        zeroDays++;
-        restDays++;
-        calendarMiles.push(0);
-        continue;
+      if (Number.isFinite(ts)) {
+        if (firstTs === null || ts < firstTs) firstTs = ts;
+        if (lastTs === null || ts > lastTs) lastTs = ts;
       }
 
-      if (miles < MIN_DAY_MILES) {
-        neroDays++;
+      const entry = daysMap.get(dayKey) || { distM: 0, timeS: 0 };
+      entry.distM += distM;
+      entry.timeS += timeS;
+      daysMap.set(dayKey, entry);
+    }
+
+    // -------------------------------
+    // 2. Walk calendar days
+    // -------------------------------
+    let trailDays = 0;
+    let neroDays = 0;
+    let zeroDays = 0;
+    let restDays = 0;
+
+    let totalDistM = 0;
+    let totalTimeS = 0;
+
+    let longestDay = null;
+    let shortestDay = null;
+
+    const trailDayMiles = [];
+    const calendarMiles = [];
+
+    if (firstTs !== null && lastTs !== null) {
+      for (let ts = firstTs; ts <= lastTs; ts += 86400000) {
+        const dayKey = new Date(ts).toISOString().slice(0, 10);
+        const entry = daysMap.get(dayKey);
+
+        const distM = entry ? entry.distM : 0;
+        const timeS = entry ? entry.timeS : 0;
+        const miles = distM * MI_PER_M;
+
+        if (distM === 0) {
+          zeroDays++;
+          restDays++;
+          calendarMiles.push(0);
+          continue;
+        }
+
+        if (miles < MIN_DAY_MILES) {
+          neroDays++;
+          calendarMiles.push(miles);
+          continue;
+        }
+
+        // Trail day
+        trailDays++;
+        totalDistM += distM;
+        totalTimeS += timeS;
+
+        trailDayMiles.push(miles);
         calendarMiles.push(miles);
-        continue;
+
+        const item = {
+          miles,
+          timeS,
+          date: dayKey
+        };
+
+        if (!longestDay || miles > longestDay.miles) longestDay = item;
+        if (!shortestDay || miles < shortestDay.miles) shortestDay = item;
       }
-
-      // Trail day
-      trailDays++;
-      totalDistM += distM;
-      totalTimeS += timeS;
-
-      trailDayMiles.push(miles);
-      calendarMiles.push(miles);
-
-      const item = {
-        miles,
-        timeS,
-        date: dayKey
-      };
-
-      if (!longestDay || miles > longestDay.miles) longestDay = item;
-      if (!shortestDay || miles < shortestDay.miles) shortestDay = item;
     }
-  }
 
-  // -------------------------------
-  // 3. Averages
-  // -------------------------------
-  const totalMiles = totalDistM * MI_PER_M;
+    // -------------------------------
+    // 3. Averages
+    // -------------------------------
+    const totalMiles = totalDistM * MI_PER_M;
 
-  const avgMilesPerTrailDay =
-    trailDays > 0 ? totalMiles / trailDays : null;
+    const avgMilesPerTrailDay =
+      trailDays > 0 ? totalMiles / trailDays : null;
 
-  const avgMilesPerCalendarDay =
-    calendarMiles.length > 0
-      ? calendarMiles.reduce((a, b) => a + b, 0) / calendarMiles.length
-      : null;
+    const avgMilesPerCalendarDay =
+      calendarMiles.length > 0
+        ? calendarMiles.reduce((a, b) => a + b, 0) / calendarMiles.length
+        : null;
 
-  let rollingAvgMiles = null;
-  if (trailDayMiles.length > 0) {
-    const slice = trailDayMiles.slice(-ROLLING_DAYS);
-    rollingAvgMiles = slice.reduce((a, b) => a + b, 0) / slice.length;
-  }
-
-  // -------------------------------
-  // 4. Return stable object
-  // -------------------------------
-  return {
-    totals: {
-      miles: totalMiles,
-      timeSeconds: totalTimeS
-    },
-    days: {
-      trail: trailDays,
-      nero: neroDays,
-      zero: zeroDays,
-      rest: restDays,
-      calendar: calendarMiles.length
-    },
-    averages: {
-      trailDay: avgMilesPerTrailDay,
-      calendarDay: avgMilesPerCalendarDay,
-      rollingTrailDay: rollingAvgMiles
-    },
-    extremes: {
-      longestDay,
-      shortestDay
-    },
-    timeline: {
-      firstTs,
-      lastTs
+    let rollingAvgMiles = null;
+    if (trailDayMiles.length > 0) {
+      const slice = trailDayMiles.slice(-ROLLING_DAYS);
+      rollingAvgMiles = slice.reduce((a, b) => a + b, 0) / slice.length;
     }
-  };
+
+    // -------------------------------
+    // 4. Return stable object
+    // -------------------------------
+    return {
+      totals: {
+        miles: totalMiles,
+        timeSeconds: totalTimeS
+      },
+      days: {
+        trail: trailDays,
+        nero: neroDays,
+        zero: zeroDays,
+        rest: restDays,
+        calendar: calendarMiles.length
+      },
+      averages: {
+        trailDay: avgMilesPerTrailDay,
+        calendarDay: avgMilesPerCalendarDay,
+        rollingTrailDay: rollingAvgMiles
+      },
+      extremes: {
+        longestDay,
+        shortestDay
+      },
+      timeline: {
+        firstTs,
+        lastTs
+      }
+    };
   }
 
   function setStatsUI(stats) {
@@ -295,7 +295,6 @@
       </div>
     `;
   }
-
 
   function loadJson(url) {
     return fetch(url, { cache: "no-store" })
