@@ -165,136 +165,136 @@
   };
 }
 
-  function setStatsUI(stats) {
-  if (!stats || !statsListEl) return;
+    function setStatsUI(stats) {
+    if (!stats || !statsListEl) return;
 
-  const miles = stats.totals.miles;
-  const timeS = stats.totals.timeSeconds;
+    const miles = stats.totals.miles;
+    const timeS = stats.totals.timeSeconds;
 
-  const avgTrail = stats.averages.trailDay;
-  const avgCal = stats.averages.calendarDay;
-  const rolling = stats.averages.rollingTrailDay;
+    const avgTrail = stats.averages.trailDay;
+    const avgCal = stats.averages.calendarDay;
+    const rolling = stats.averages.rollingTrailDay;
 
-  const hours = timeS / 3600;
-  const avgSpeed = hours > 0 ? miles / hours : null;
+    const hours = timeS / 3600;
+    const avgSpeed = hours > 0 ? miles / hours : null;
 
-  statsListEl.innerHTML = `
-    <div class="pct-stats-wrap">
+    statsListEl.innerHTML = `
+      <div class="pct-stats-wrap">
 
-      <div class="pct-stat-hero">
-        <div class="label">Total Distance</div>
-        <div class="big">
-          <div class="primary">${fmtNumber(miles, 1)} mi</div>
-        </div>
-      </div>
-
-      <div class="pct-chip-grid">
-
-        <div class="pct-chip">
-          <div class="label">Total Time</div>
-          <div class="value">${fmtDuration(timeS)}</div>
-          <div class="sub">${stats.days.trail} trail days</div>
+        <div class="pct-stat-hero">
+          <div class="label">Total Distance</div>
+          <div class="big">
+            <div class="primary">${fmtNumber(miles, 1)} mi</div>
+          </div>
         </div>
 
-        <div class="pct-chip">
-          <div class="label">Avg Miles / Trail Day</div>
-          <div class="value">${fmtNumber(avgTrail, 1)} mi</div>
+        <div class="pct-chip-grid">
+
+          <div class="pct-chip">
+            <div class="label">Total Time</div>
+            <div class="value">${fmtDuration(timeS)}</div>
+            <div class="sub">${stats.days.trail} trail days</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Avg Miles / Trail Day</div>
+            <div class="value">${fmtNumber(avgTrail, 1)} mi</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Avg Miles / Calendar Day</div>
+            <div class="value">${fmtNumber(avgCal, 1)} mi</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Avg Speed</div>
+            <div class="value">${fmtNumber(avgSpeed, 1)} mi/h</div>
+          </div>
+
         </div>
-
-        <div class="pct-chip">
-          <div class="label">Avg Miles / Calendar Day</div>
-          <div class="value">${fmtNumber(avgCal, 1)} mi</div>
-        </div>
-
-        <div class="pct-chip">
-          <div class="label">Avg Speed</div>
-          <div class="value">${fmtNumber(avgSpeed, 1)} mi/h</div>
-        </div>
-
-      </div>
-    </div>
-  `;
-}
-
-  function setInsightsUI(stats) {
-  if (!stats || !insightsListEl) return;
-
-  const pctCompleted = (stats.totals.miles / PCT_TOTAL_MI) * 100;
-  const remainingMi = Math.max(0, PCT_TOTAL_MI - stats.totals.miles);
-
-  const first = stats.timeline.firstTs
-    ? new Date(stats.timeline.firstTs).toLocaleDateString()
-    : "—";
-
-  const last = stats.timeline.lastTs
-    ? new Date(stats.timeline.lastTs).toLocaleDateString()
-    : "—";
-
-  function dayChip(label, item) {
-    if (!item) {
-      return `
-        <div class="pct-chip">
-          <div class="label">${label}</div>
-          <div class="pct-day-meta">—</div>
-        </div>
-      `;
-    }
-
-    return `
-      <div class="pct-chip">
-        <div class="label">${label}</div>
-        <div class="pct-day-meta">
-          ${fmtNumber(item.miles, 1)} mi · ${fmtDuration(item.timeS)}
-        </div>
-        <div class="pct-day-date">${item.date}</div>
       </div>
     `;
   }
 
-  insightsListEl.innerHTML = `
-    <div class="pct-sections">
+    function setInsightsUI(stats) {
+    if (!stats || !insightsListEl) return;
 
-      <div class="pct-section">
-        <div class="pct-section-title">Progress</div>
-        <div class="pct-rows">
-          <div class="pct-row">
-            <span>PCT Completed</span>
-            <b>${fmtNumber(pctCompleted, 1)}%</b>
+    const pctCompleted = (stats.totals.miles / PCT_TOTAL_MI) * 100;
+    const remainingMi = Math.max(0, PCT_TOTAL_MI - stats.totals.miles);
+
+    const first = stats.timeline.firstTs
+      ? new Date(stats.timeline.firstTs).toLocaleDateString()
+      : "—";
+
+    const last = stats.timeline.lastTs
+      ? new Date(stats.timeline.lastTs).toLocaleDateString()
+      : "—";
+
+    function dayChip(label, item) {
+      if (!item) {
+        return `
+          <div class="pct-chip">
+            <div class="label">${label}</div>
+            <div class="pct-day-meta">—</div>
           </div>
-          <div class="pct-progressbar">
-            <div class="pct-progressfill" style="width:${pctCompleted}%;"></div>
+        `;
+      }
+
+      return `
+        <div class="pct-chip">
+          <div class="label">${label}</div>
+          <div class="pct-day-meta">
+            ${fmtNumber(item.miles, 1)} mi · ${fmtDuration(item.timeS)}
           </div>
-          <div class="pct-row">
-            <span>Remaining</span>
-            <b>${fmtNumber(remainingMi, 1)} mi</b>
+          <div class="pct-day-date">${item.date}</div>
+        </div>
+      `;
+    }
+
+    insightsListEl.innerHTML = `
+      <div class="pct-sections">
+
+        <div class="pct-section">
+          <div class="pct-section-title">Progress</div>
+          <div class="pct-rows">
+            <div class="pct-row">
+              <span>PCT Completed</span>
+              <b>${fmtNumber(pctCompleted, 1)}%</b>
+            </div>
+            <div class="pct-progressbar">
+              <div class="pct-progressfill" style="width:${pctCompleted}%;"></div>
+            </div>
+            <div class="pct-row">
+              <span>Remaining</span>
+              <b>${fmtNumber(remainingMi, 1)} mi</b>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="pct-section">
-        <div class="pct-section-title">Timeline</div>
-        <div class="pct-rows">
-          <div class="pct-row"><span>First Day</span><b>${first}</b></div>
-          <div class="pct-row"><span>Latest Day</span><b>${last}</b></div>
-          <div class="pct-row">
-            <span>Days</span>
-            <b>
-              ${stats.days.trail} trail ·
-              ${stats.days.nero} nero ·
-              ${stats.days.zero} zero
-            </b>
+        <div class="pct-section">
+          <div class="pct-section-title">Timeline</div>
+          <div class="pct-rows">
+            <div class="pct-row"><span>First Day</span><b>${first}</b></div>
+            <div class="pct-row"><span>Latest Day</span><b>${last}</b></div>
+            <div class="pct-row">
+              <span>Days</span>
+              <b>
+                ${stats.days.trail} trail ·
+                ${stats.days.nero} nero ·
+                ${stats.days.zero} zero
+              </b>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="pct-daychips">
-        ${dayChip("Longest Day", stats.extremes.longestDay)}
-        ${dayChip("Shortest Day", stats.extremes.shortestDay)}
-      </div>
+        <div class="pct-daychips">
+          ${dayChip("Longest Day", stats.extremes.longestDay)}
+          ${dayChip("Shortest Day", stats.extremes.shortestDay)}
+        </div>
 
-    </div>
-  `;
-}
+      </div>
+    `;
+  }
 
   function loadJson(url) {
     return fetch(url, { cache: "no-store" })
