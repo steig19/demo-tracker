@@ -17,6 +17,9 @@
   // -----------------------
   // Helpers
   // -----------------------
+
+  const TRAIL_TOTAL_MI = 1158; // Ice Age Trail
+  
   function fmtDate(ts) {
     try { return new Date(ts).toLocaleString(); }
     catch { return "—"; }
@@ -248,8 +251,8 @@
     if (!insightsListEl) return;
     if (!stats || !insightsListEl) return;
 
-    const pctCompleted = (stats.totals.miles / PCT_TOTAL_MI) * 100;
-    const remainingMi = Math.max(0, PCT_TOTAL_MI - stats.totals.miles);
+    const pctCompleted = (stats.totals.miles / TRAIL_TOTAL_MI) * 100;
+    const remainingMi = Math.max(0, TRAIL_TOTAL_MI - stats.totals.miles);
 
     const first = stats.timeline.firstTs
       ? new Date(stats.timeline.firstTs).toLocaleDateString()
