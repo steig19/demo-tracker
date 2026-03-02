@@ -869,6 +869,7 @@
       ]);
 
       currentTrack = trackRaw;
+      const track = currentTrack;
       const stats = computeStats(currentTrack, trailConfig);
       setStatsUI(stats);
       setInsightsUI(stats);
