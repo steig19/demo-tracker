@@ -1,4 +1,5 @@
 // Element references
+let lastGeneratedSlug = null;
 const WORD_LIMIT = 250;
 const dateEl = document.getElementById('update-date');
 const titleEl = document.getElementById('update-title');
@@ -154,6 +155,12 @@ function buildIndexEntry() {
 function handleGenerateClick() {
   const markdown = buildMarkdown();
   const slug = generateSlug(dateEl.value, titleEl.value);
+  if (slug === lastGeneratedSlug) {
+    const proceed = confirm(
+      "This slug was just generated. Are you sure you want to regenerate it?"
+    );
+    if (!proceed) return;
+  }
   const filename = `${slug}.md`;
 
   // Download markdown file
@@ -165,6 +172,16 @@ function handleGenerateClick() {
 
   // Reveal section
   indexSection.hidden = false;
+
+  lastGeneratedSlug = slug;
+}
+
+resetForm();
+function resetForm() {
+  document.getElementById('update-form').reset();
+  slugOutput.textContent = '—';
+  wordCountEl.textContent = `0 / ${WORD_LIMIT} words`;
+  generateBtn.disabled = true;
 }
 
 copyIndexBtn.addEventListener('click', async () => {
