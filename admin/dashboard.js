@@ -1,4 +1,5 @@
 // Element references
+const WORD_LIMIT = 250;
 const dateEl = document.getElementById('update-date');
 const titleEl = document.getElementById('update-title');
 const mileEl = document.getElementById('update-mile');
@@ -47,7 +48,7 @@ function validateForm() {
     !isNaN(mile) &&
     mile >= 0 &&
     body &&
-    wordCount <= 250;
+    wordCount <= WORD_LIMIT;;
 
   generateBtn.disabled = !valid;
 }
@@ -59,7 +60,7 @@ function updateUI() {
   slugOutput.textContent = slug || '—';
 
   const words = countWords(bodyEl.value);
-  wordCountEl.textContent = `${words} / 250 words`;
+  wordCountEl.textContent = `${words} / ${WORD_LIMIT} words`;
 
   if (words > 250) {
     wordCountEl.style.color = 'red';
