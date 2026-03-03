@@ -9,9 +9,56 @@
 </head>
 <body>
 
-  <h1>Trail Admin Dashboard</h1>
-  <p>If you can read this, the dashboard is loading.</p>
+  <main class="dashboard">
+
+    <h1>Post Trail Update</h1>
+
+    <form id="update-form">
+
+      <label>
+        Date
+        <input type="date" id="update-date" required>
+      </label>
+
+      <label>
+        Title
+        <input type="text" id="update-title" maxlength="80" required>
+      </label>
+
+      <label>
+        Mile Marker
+        <input type="number" id="update-mile" step="0.1" required>
+      </label>
+
+      <label>
+        Location (optional)
+        <input type="text" id="update-location">
+      </label>
+
+      <label>
+        Tags (comma separated)
+        <input type="text" id="update-tags">
+      </label>
+
+      <label>
+        Body (500 words max)
+        <textarea id="update-body" rows="10" required></textarea>
+        <div id="word-count">0 / 500 words</div>
+      </label>
+
+      <div class="slug-preview">
+        Slug: <span id="slug-output">—</span>
+      </div>
+
+      <button type="button" id="generate-btn" disabled>
+        Generate Markdown File
+      </button>
+
+    </form>
+
+  </main>
 
   <script src="dashboard.js"></script>
+
 </body>
 </html>
