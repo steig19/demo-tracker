@@ -1,17 +1,48 @@
+:root {
+  --bg: #f5f5f5;
+  --panel: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+  --border: #dddddd;
+  --accent: #0a84ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --panel: #1e1e1e;
+    --text: #f5f5f5;
+    --muted: #aaaaaa;
+    --border: #333333;
+    --accent: #4da3ff;
+  }
+}
+
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
   padding: 1rem;
-  background: #f5f5f5;
+  background: var(--bg);
+  color: var(--text);
 }
 
 h1 {
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.25rem;
 }
 
 .public-link {
   margin-top: 0;
   margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.public-link a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.public-link a:hover {
+  text-decoration: underline;
 }
 
 .dashboard {
@@ -26,6 +57,10 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  background: var(--panel);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
 }
 
 label {
@@ -39,6 +74,10 @@ input,
 textarea {
   font-size: 1rem;
   padding: 0.6rem;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
 }
 
 textarea {
@@ -47,18 +86,22 @@ textarea {
 
 #word-count {
   font-size: 0.85rem;
-  opacity: 0.7;
+  color: var(--muted);
 }
 
 .slug-preview {
   font-size: 0.9rem;
-  opacity: 0.8;
+  color: var(--muted);
 }
 
 button {
   padding: 0.8rem;
   font-size: 1rem;
   cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);
+  color: white;
 }
 
 button:disabled {
