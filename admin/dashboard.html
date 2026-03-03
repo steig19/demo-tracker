@@ -76,6 +76,36 @@
 
     </form>
 
+    <hr />
+    <section class="settings-section">
+      <h2>Trail Configuration</h2>
+    
+      <label>
+        Trail Name
+        <input type="text" id="config-trail-name">
+      </label>
+    
+      <label>
+        Total Trail Miles
+        <input type="number" id="config-total-miles" step="0.1">
+      </label>
+    
+      <label>
+        Unit
+        <select id="config-unit">
+          <option value="mi">Miles</option>
+          <option value="km">Kilometers</option>
+        </select>
+      </label>
+    
+      <button type="button" id="generate-config-btn">
+        Generate trail.config.json
+      </button>
+    
+      <textarea id="config-output" rows="10" readonly hidden></textarea>
+    
+    </section>
+
   </main>
 
   <script src="dashboard.js"></script>
