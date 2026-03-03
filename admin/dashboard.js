@@ -85,3 +85,60 @@ function updateUI() {
 updateUI();
 
 console.log("Dashboard form logic loaded.");
+
+// ---- Markdown Generation ----
+
+function buildMarkdown() {
+  const date = dateEl.value;
+  const title = titleEl.value.trim();
+  const mile = parseFloat(mileEl.value);
+  const location = locationEl.value.trim();
+  const tagsInput = tagsEl.value.trim();
+  const body = bodyEl.value.trim();
+
+  const slug = generateSlug(date, title);
+
+  const tagsArray = tagsInput
+    ? tagsInput.split(',').map(t => t.trim()).filter(Boolean)
+    : [];
+
+  const tagsYaml = `[${tagsArray.map(t => `"${t}"`).join(', ')}]`;
+
+  const locationYaml = `location: "${location || ''}"`;
+
+  return `---
+schemaVersion: 1
+date: ${date}
+mile: ${mile}
+title: "${title}"
+slug: "${slug}"
+${locationYaml}
+tags: ${tagsYaml}
+---
+
+${body}
+`;
+}
+
+function downloadFile(filename, content) {
+  const blob = new Blob([content], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function handleGenerateClick() {
+  const markdown = buildMarkdown();
+  const slug = generateSlug(dateEl.value, titleEl.value);
+  const filename = `${slug}.md`;
+
+  downloadFile(filename, markdown);
+}
+
+// Attach to button
+generateBtn.addEventListener('click', handleGenerateClick);
