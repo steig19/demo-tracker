@@ -59,7 +59,7 @@ function updateUI() {
   slugOutput.textContent = slug || '—';
 
   const words = countWords(bodyEl.value);
-  wordCountEl.textContent = `${words} / 500 words`;
+  wordCountEl.textContent = `${words} / 250 words`;
 
   if (words > 250) {
     wordCountEl.style.color = 'red';
