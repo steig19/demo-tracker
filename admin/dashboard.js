@@ -7,6 +7,10 @@ const locationEl = document.getElementById('update-location');
 const tagsEl = document.getElementById('update-tags');
 const bodyEl = document.getElementById('update-body');
 
+const indexSection = document.getElementById('index-section');
+const indexOutput = document.getElementById('index-output');
+const copyIndexBtn = document.getElementById('copy-index-btn');
+
 const wordCountEl = document.getElementById('word-count');
 const slugOutput = document.getElementById('slug-output');
 const generateBtn = document.getElementById('generate-btn');
@@ -132,13 +136,48 @@ function downloadFile(filename, content) {
   URL.revokeObjectURL(url);
 }
 
+function buildIndexEntry() {
+  const date = dateEl.value;
+  const title = titleEl.value.trim();
+  const mile = parseFloat(mileEl.value);
+  const slug = generateSlug(date, title);
+
+  return `{
+  "slug": "${slug}",
+  "date": "${date}",
+  "mile": ${mile},
+  "title": "${title}",
+  "file": "${slug}.md"
+},`;
+}
+
 function handleGenerateClick() {
   const markdown = buildMarkdown();
   const slug = generateSlug(dateEl.value, titleEl.value);
   const filename = `${slug}.md`;
 
+  // Download markdown file
   downloadFile(filename, markdown);
+
+  // Generate index entry
+  const indexEntry = buildIndexEntry();
+  indexOutput.value = indexEntry;
+
+  // Reveal section
+  indexSection.hidden = false;
 }
+
+copyIndexBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(indexOutput.value);
+    copyIndexBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyIndexBtn.textContent = "Copy Index Entry";
+    }, 1500);
+  } catch (err) {
+    alert("Clipboard copy failed. You can copy manually.");
+  }
+});
 
 // Attach to button
 generateBtn.addEventListener('click', handleGenerateClick);
