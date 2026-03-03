@@ -47,7 +47,7 @@ function validateForm() {
     !isNaN(mile) &&
     mile >= 0 &&
     body &&
-    wordCount <= 500;
+    wordCount <= 250;
 
   generateBtn.disabled = !valid;
 }
@@ -61,7 +61,7 @@ function updateUI() {
   const words = countWords(bodyEl.value);
   wordCountEl.textContent = `${words} / 500 words`;
 
-  if (words > 500) {
+  if (words > 250) {
     wordCountEl.style.color = 'red';
   } else {
     wordCountEl.style.color = '';
