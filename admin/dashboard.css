@@ -132,3 +132,15 @@ button:disabled {
   color: var(--text);
   border: 1px solid var(--border);
 }
+
+.settings-section {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.settings-section textarea {
+  font-family: monospace;
+  padding: 0.75rem;
+}
