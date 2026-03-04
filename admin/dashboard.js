@@ -282,6 +282,8 @@ async function loadExistingConfig() {
     configStartDateEl.value = config.startDate || "";
     configEndDateEl.value = config.endDate || "";
 
+    configUnitsEl.value = config.units || "imperial";
+
     if (config.stats) {
       configMinDayMilesEl.value = config.stats.minDayMiles || "";
       configRollingAvgDaysEl.value = config.stats.rollingAvgDays || "";
