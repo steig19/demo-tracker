@@ -1,3 +1,11 @@
 {
-  "updates": []
+  "updates": [
+    {
+      "slug": "2026-03-05-first-test",
+      "date": "2026-03-05",
+      "mile": 12.3,
+      "title": "First Test Update",
+      "file": "test-update.md"
+    }
+  ]
 }
