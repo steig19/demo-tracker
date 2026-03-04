@@ -21,7 +21,6 @@ const configTrailNameEl = document.getElementById('config-trail-name');
 const configLengthMilesEl = document.getElementById('config-length-miles');
 const configStartDateEl = document.getElementById('config-start-date');
 const configEndDateEl = document.getElementById('config-end-date');
-const configUnitsEl = document.getElementById('config-units');
 
 const configMinDayMilesEl = document.getElementById('config-min-day-miles');
 const configRollingAvgDaysEl = document.getElementById('config-rolling-avg-days');
@@ -232,7 +231,7 @@ function buildTrailConfig() {
     startDate: configStartDateEl.value,
     endDate: configEndDateEl.value || null,
 
-    units: configUnitsEl.value,
+    units: "imperial",
 
     stats: {
       minDayMiles: parseInt(configMinDayMilesEl.value),
