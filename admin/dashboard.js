@@ -176,7 +176,6 @@ function handleGenerateClick() {
   lastGeneratedSlug = slug;
 }
 
-resetForm();
 function resetForm() {
   document.getElementById('update-form').reset();
   slugOutput.textContent = '—';
@@ -187,10 +186,17 @@ function resetForm() {
 copyIndexBtn.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(indexOutput.value);
+
     copyIndexBtn.textContent = "Copied!";
     setTimeout(() => {
       copyIndexBtn.textContent = "Copy Index Entry";
     }, 1500);
+
+    // Now reset everything
+    resetForm();
+    indexSection.hidden = true;
+    lastGeneratedSlug = null;
+
   } catch (err) {
     alert("Clipboard copy failed. You can copy manually.");
   }
