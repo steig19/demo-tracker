@@ -78,7 +78,13 @@
 
     <hr />
     <section class="settings-section">
+
       <h2>Trail Configuration</h2>
+    
+      <label>
+        Trail ID
+        <input type="text" id="config-trail-id" placeholder="ice-age-trail-2025">
+      </label>
     
       <label>
         Trail Name
@@ -86,23 +92,55 @@
       </label>
     
       <label>
-        Total Trail Miles
-        <input type="number" id="config-total-miles" step="0.1">
+        Trail Length (miles)
+        <input type="number" id="config-length-miles" step="1">
       </label>
     
       <label>
-        Unit
-        <select id="config-unit">
-          <option value="mi">Miles</option>
-          <option value="km">Kilometers</option>
+        Start Date
+        <input type="date" id="config-start-date">
+      </label>
+    
+      <label>
+        End Date
+        <input type="date" id="config-end-date">
+      </label>
+    
+      <label>
+        Units
+        <select id="config-units">
+          <option value="imperial">Imperial</option>
+          <option value="metric">Metric</option>
         </select>
       </label>
     
+      <h3>Stats Configuration</h3>
+    
+      <label>
+        Minimum Day Miles
+        <input type="number" id="config-min-day-miles" step="1">
+      </label>
+    
+      <label>
+        Rolling Average Days
+        <input type="number" id="config-rolling-avg-days" step="1">
+      </label>
+    
+      <label>
+        <input type="checkbox" id="config-include-nero">
+        Include Nero Days in Calendar Average
+      </label>
+    
+      <label>
+        <input type="checkbox" id="config-include-zero">
+        Include Zero Days in Calendar Average
+      </label>
+    
       <button type="button" id="generate-config-btn">
-        Generate trail.config.json
+        Generate trail.json
       </button>
     
-      <textarea id="config-output" rows="10" readonly hidden></textarea>
+      <textarea id="config-output" rows="12" readonly hidden></textarea>
     
     </section>
 
