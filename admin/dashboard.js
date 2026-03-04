@@ -16,6 +16,21 @@ const wordCountEl = document.getElementById('word-count');
 const slugOutput = document.getElementById('slug-output');
 const generateBtn = document.getElementById('generate-btn');
 
+const configTrailIdEl = document.getElementById('config-trail-id');
+const configTrailNameEl = document.getElementById('config-trail-name');
+const configLengthMilesEl = document.getElementById('config-length-miles');
+const configStartDateEl = document.getElementById('config-start-date');
+const configEndDateEl = document.getElementById('config-end-date');
+const configUnitsEl = document.getElementById('config-units');
+
+const configMinDayMilesEl = document.getElementById('config-min-day-miles');
+const configRollingAvgDaysEl = document.getElementById('config-rolling-avg-days');
+const configIncludeNeroEl = document.getElementById('config-include-nero');
+const configIncludeZeroEl = document.getElementById('config-include-zero');
+
+const generateConfigBtn = document.getElementById('generate-config-btn');
+const configOutput = document.getElementById('config-output');
+
 // ---- Utilities ----
 
 function countWords(text) {
@@ -204,3 +219,45 @@ copyIndexBtn.addEventListener('click', async () => {
 
 // Attach to button
 generateBtn.addEventListener('click', handleGenerateClick);
+
+// Trail Config
+function buildTrailConfig() {
+
+  const configObject = {
+    trailId: configTrailIdEl.value.trim(),
+    name: configTrailNameEl.value.trim(),
+    lengthMiles: parseInt(configLengthMilesEl.value),
+
+    startDate: configStartDateEl.value,
+    endDate: configEndDateEl.value || null,
+
+    units: configUnitsEl.value,
+
+    stats: {
+      minDayMiles: parseInt(configMinDayMilesEl.value),
+      rollingAvgDays: parseInt(configRollingAvgDaysEl.value),
+      includeNeroInCalendarAvg: configIncludeNeroEl.checked,
+      includeZeroDaysInCalendarAvg: configIncludeZeroEl.checked
+    }
+  };
+
+  if (!configObject.trailId || !configObject.name || !configObject.lengthMiles) {
+    alert("Please complete Trail ID, Name, and Length.");
+    return null;
+  }
+
+  return JSON.stringify(configObject, null, 2);
+}
+
+function handleGenerateConfig() {
+
+  const configJson = buildTrailConfig();
+  if (!configJson) return;
+
+  configOutput.hidden = false;
+  configOutput.value = configJson;
+
+  downloadFile("trail.json", configJson);
+}
+
+generateConfigBtn.addEventListener('click', handleGenerateConfig);
