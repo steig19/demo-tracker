@@ -14,4 +14,9 @@ nav: updates
 
 </section>
 
+<script>
+  window.UPDATES_INDEX = "{{ '/data/updates.index.json' | relative_url }}";
+  window.UPDATES_DIR = "{{ '/data/updates/' | relative_url }}";
+</script>
+
 <script src="{{ '/assets/js/updates.js' | relative_url }}"></script>
