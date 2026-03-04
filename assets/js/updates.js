@@ -1,3 +1,15 @@
+function renderMarkdown(md) {
+
+  return md
+    .replace(/^---[\s\S]*?---/, "")        // remove frontmatter
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // bold
+    .replace(/\n\n/g, "</p><p>")           // paragraphs
+    .replace(/\n/g, "<br>")                // line breaks
+    .replace(/^/, "<p>")
+    .replace(/$/, "</p>");
+
+}
+
 async function loadUpdates() {
 
   const container = document.getElementById("updates-feed");
