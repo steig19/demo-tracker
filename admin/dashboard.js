@@ -267,7 +267,7 @@ async function loadExistingConfig() {
 
   try {
 
-    const response = await fetch('../data/current/trail.json');
+    const response = await fetch('../data/trail.json');
 
     if (!response.ok) {
       alert("No existing trail.json found.");
