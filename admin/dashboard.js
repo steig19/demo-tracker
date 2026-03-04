@@ -297,3 +297,90 @@ async function loadExistingConfig() {
 }
 
 loadConfigBtn.addEventListener('click', loadExistingConfig);
+
+// Batch processing for offline updates
+const batchInput = document.getElementById("batchInput");
+const parseBtn = document.getElementById("parseBatchBtn");
+const previewEl = document.getElementById("batchPreview");
+const publishBtn = document.getElementById("publishBatchBtn");
+
+let parsedEntries = [];
+
+parseBtn.onclick = () => {
+
+  const text = batchInput.value;
+
+  parsedEntries = parseBatch(text);
+
+  renderPreview(parsedEntries);
+
+  if (parsedEntries.length > 0)
+    publishBtn.style.display = "inline-block";
+
+};
+
+// Batch Parser
+function parseBatch(text) {
+
+  const chunks = text.split("===");
+
+  return chunks
+    .map(c => c.trim())
+    .filter(c => c.length)
+    .map(parseEntry);
+
+}
+
+// Entry Parser
+
+function parseEntry(entry) {
+
+  const lines = entry.split("\n");
+
+  let title = "";
+  let date = "";
+  let mile = "";
+  let bodyStart = 0;
+
+  lines.forEach((line, i) => {
+
+    if (line.startsWith("Title:"))
+      title = line.replace("Title:", "").trim();
+
+    if (line.startsWith("Date:"))
+      date = line.replace("Date:", "").trim();
+
+    if (line.startsWith("Mile:"))
+      mile = line.replace("Mile:", "").trim();
+
+    if (line.trim() === "---")
+      bodyStart = i + 1;
+
+  });
+
+  const body = lines.slice(bodyStart).join("\n").trim();
+
+  if (!date || date === "auto")
+    date = new Date().toISOString().slice(0,10);
+
+  return { title, date, mile, body };
+
+}
+
+// Publish button
+
+publishBtn.onclick = async () => {
+
+  for (const entry of parsedEntries) {
+
+    await createUpdate({
+      title: entry.title,
+      date: entry.date,
+      body: entry.body
+    });
+
+  }
+
+  alert(parsedEntries.length + " updates published");
+
+};
