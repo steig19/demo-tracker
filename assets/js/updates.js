@@ -21,6 +21,11 @@ async function loadUpdates() {
     for (const entry of sorted) {
 
       const mdRes = await fetch(window.UPDATES_DIR + entry.file);
+
+      if (!mdRes.ok) {
+        console.error("Update file not found:", window.UPDATES_DIR + entry.file);
+        continue;
+      }
       const markdown = await mdRes.text();
       const html = renderMarkdown(markdown);
 
