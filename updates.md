@@ -1,27 +1,17 @@
 ---
 layout: default
-title: Updates
+title: Trail Updates
 nav: updates
 ---
 
-<div class="updates">
+<section class="updates-page">
 
-  <h2 class="updates-title">Trail Updates</h2>
+  <h1>Trail Updates</h1>
 
-  <div class="update-card">
-    <div class="update-date">Feb 2, 2026</div>
-    <div class="update-text">
-      Reached the next town. Took a rest day, resupply done.
-    </div>
+  <div id="updates-feed">
+    Loading updates…
   </div>
 
-  <div class="update-card">
-    <div class="update-date">Feb 1, 2026</div>
-    <div class="update-text">
-      First day on trail. Legs are good. Weather perfect.
-    </div>
-  </div>
+</section>
 
-  <div class="update-note">(Older updates at the bottom)</div>
-
-</div>
+<script src="{{ '/assets/js/updates.js' | relative_url }}"></script>
