@@ -322,12 +322,37 @@ parseBtn.onclick = () => {
 // Batch Parser
 function parseBatch(text) {
 
-  const chunks = text.split("===");
+  const chunks = text.split("=== UPDATE ===");
 
   return chunks
     .map(c => c.trim())
     .filter(c => c.length)
-    .map(parseEntry);
+    .map(parseEntry)
+    .map(validateEntry)
+    .sort(sortByDate);
+
+}
+
+// Validation Step
+function validateEntry(entry) {
+
+  const warnings = [];
+
+  if (!entry.mile)
+    warnings.push("Missing mile marker");
+
+  if (entry.mile && isNaN(parseFloat(entry.mile)))
+    warnings.push("Invalid mile value");
+
+  if (!entry.title)
+    warnings.push("Missing title");
+
+  if (!entry.body)
+    warnings.push("Empty update body");
+
+  entry.warnings = warnings;
+
+  return entry;
 
 }
 
@@ -364,6 +389,46 @@ function parseEntry(entry) {
     date = new Date().toISOString().slice(0,10);
 
   return { title, date, mile, body };
+
+}
+
+//Date Sorter
+function sortByDate(a, b) {
+
+  const da = new Date(a.date);
+  const db = new Date(b.date);
+
+  return da - db;
+
+}
+
+// Renderer
+function renderPreview(entries) {
+
+  previewEl.innerHTML = "";
+
+  entries.forEach((e) => {
+
+    const card = document.createElement("div");
+
+    const warningHTML = e.warnings.length
+      ? `<div class="batch-warning">⚠ ${e.warnings.join("<br>⚠ ")}</div>`
+      : "";
+
+    card.className = "batch-card";
+
+    card.innerHTML = `
+      <strong>${e.title || "Untitled Update"}</strong><br>
+      Mile ${e.mile || "?"}<br>
+      <em>${e.date}</em><br><br>
+      ${warningHTML}
+      ${e.body.slice(0,200)}
+      <hr>
+    `;
+
+    previewEl.appendChild(card);
+
+  });
 
 }
 
