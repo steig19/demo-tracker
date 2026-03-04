@@ -47,7 +47,7 @@ async function loadUpdates() {
 
       article.innerHTML = `
         <header>
-          <h2>${entry.title}</h2>
+          <h3>${entry.title}</h3>
           <div class="update-meta">
             ${entry.date} · Mile ${entry.mile}
           </div>
