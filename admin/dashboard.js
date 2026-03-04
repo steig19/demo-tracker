@@ -29,6 +29,7 @@ const configIncludeNeroEl = document.getElementById('config-include-nero');
 const configIncludeZeroEl = document.getElementById('config-include-zero');
 
 const generateConfigBtn = document.getElementById('generate-config-btn');
+const loadConfigBtn = document.getElementById('load-config-btn');
 const configOutput = document.getElementById('config-output');
 
 // ---- Utilities ----
@@ -261,3 +262,41 @@ function handleGenerateConfig() {
 }
 
 generateConfigBtn.addEventListener('click', handleGenerateConfig);
+
+async function loadExistingConfig() {
+
+  try {
+
+    const response = await fetch('../data/current/trail.json');
+
+    if (!response.ok) {
+      alert("No existing trail.json found.");
+      return;
+    }
+
+    const config = await response.json();
+
+    configTrailIdEl.value = config.trailId || "";
+    configTrailNameEl.value = config.name || "";
+    configLengthMilesEl.value = config.lengthMiles || "";
+
+    configStartDateEl.value = config.startDate || "";
+    configEndDateEl.value = config.endDate || "";
+
+    configUnitsEl.value = config.units || "imperial";
+
+    if (config.stats) {
+      configMinDayMilesEl.value = config.stats.minDayMiles || "";
+      configRollingAvgDaysEl.value = config.stats.rollingAvgDays || "";
+      configIncludeNeroEl.checked = config.stats.includeNeroInCalendarAvg || false;
+      configIncludeZeroEl.checked = config.stats.includeZeroDaysInCalendarAvg || false;
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Unable to load trail.json");
+  }
+
+}
+
+loadConfigBtn.addEventListener('click', loadExistingConfig);
