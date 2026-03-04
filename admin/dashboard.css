@@ -171,3 +171,10 @@ button {
   margin-top: 0.5rem;
 }
 
+.batch-card{
+  border:1px solid #ddd;
+  padding:12px;
+  margin-top:6px;
+  border-radius:6px;
+  background:#fafafa;
+}
