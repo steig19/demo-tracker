@@ -13,6 +13,7 @@ function renderMarkdown(md) {
 async function loadUpdates() {
 
   const container = document.getElementById("updates-feed");
+  container.innerHTML = "";
 
   try {
 
