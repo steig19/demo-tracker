@@ -20,7 +20,7 @@ async function loadUpdates() {
 
     for (const entry of sorted) {
 
-      const mdRes = await fetch(`/data/updates/${entry.file}`);
+      const mdRes = await fetch(`../data/updates/${entry.file}`);
       const markdown = await mdRes.text();
 
       const article = document.createElement("article");
