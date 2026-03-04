@@ -22,6 +22,7 @@ async function loadUpdates() {
 
       const mdRes = await fetch(window.UPDATES_DIR + entry.file);
       const markdown = await mdRes.text();
+      const html = renderMarkdown(markdown);
 
       const article = document.createElement("article");
       article.className = "update-entry";
@@ -34,7 +35,7 @@ async function loadUpdates() {
           </div>
         </header>
         <div class="update-body">
-          ${markdown}
+          ${html}
         </div>
       `;
 
