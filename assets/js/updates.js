@@ -4,7 +4,7 @@ async function loadUpdates() {
 
   try {
 
-    const res = await fetch("/data/updates.index.json");
+    const res = await fetch("../data/updates.index.json");
     const data = await res.json();
 
     const updates = data.updates || [];
