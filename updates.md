@@ -9,9 +9,9 @@ nav: updates
   <h2 class="updates-title">Trail Updates</h2>
 
   <div class="update-card">
-    <div class="update-date">Apr 19, 2026 • Day 1</div>
-    <div class="update-mile">Mile: 11.4</div>
-    <div class="update-text"> It's just so unbelievable that I'm actually hiking the PCT after 40+ years of dreaming about it. I am so grateful for the support and encouragement of my wife, family, and friends.
+    <div class="update-date">Mar 19, 2026 • One Month Away</div>
+    <div class="update-mile">Mile: 0.0</div>
+    <div class="update-text">It all begins at the southern terminus of the PCT on April 19th. I'll be hiking over 2,600 miles on my way from the Mexico to Canada. Thanks for following along!
     </div>
   </div>
 
