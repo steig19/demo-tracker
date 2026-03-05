@@ -335,8 +335,10 @@ function parseEntry(entry) {
     if (line.startsWith("Date:"))
       date = line.replace("Date:", "").trim();
 
-    if (line.startsWith("Mile:"))
-      mile = parseFloat(line.replace("Mile:", "").trim());
+    if (line.startsWith("Mile:")) {
+      const m = parseFloat(line.replace("Mile:", "").trim());
+      mile = isNaN(m) ? "" : Number(m.toFixed(1));
+    }
 
     if (line.trim() === "---")
       bodyStart = i + 1;
@@ -351,7 +353,7 @@ function parseEntry(entry) {
   return { title, date, mile, body };
 
 }
-
+  // Parse Button
   parseBatchBtn.addEventListener("click", () => {
 
     const text = batchInput.value;
