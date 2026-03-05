@@ -19,82 +19,6 @@
       </a>
     </p>
 
-    <h3 class="section-title">Trail Update</h3>
-    <form id="update-form">
-
-      <label>
-        Date
-        <input type="date" id="update-date" required>
-      </label>
-
-      <label>
-        Title
-        <input type="text" id="update-title" maxlength="80" required>
-      </label>
-
-      <label>
-        Mile Marker
-        <input type="number" id="update-mile" step="0.1" required>
-      </label>
-
-      <label>
-        Location (optional)
-        <input type="text" id="update-location">
-      </label>
-
-      <label>
-        Tags (comma separated)
-        <input type="text" id="update-tags">
-      </label>
-
-      <label>
-        Body (250 words max)
-        <textarea id="update-body" rows="10" required></textarea>
-        <div id="word-count">0 / 250 words</div>
-      </label>
-
-      <div class="slug-preview">
-        Slug: <span id="slug-output">—</span>
-      </div>
-
-      <button type="button" id="generate-btn" disabled>
-        Generate Markdown File
-      </button>
-      <div id="index-section" class="index-section" hidden>
-
-        <h3>Index Entry</h3>
-        <p class="index-instructions">
-          Paste this at the TOP of the updates array in
-          <code>/content/updates.index.json</code>
-        </p>
-  
-        <textarea id="index-output" rows="8" readonly></textarea>
-  
-        <button type="button" id="copy-index-btn">
-          Copy Index Entry
-        </button>
-      </div>
-
-    </form>
-
-    <h3>Batch Import</h3>
-
-    <textarea id="batchInput" rows="12" style="width:100%"
-    placeholder="Paste NotePlan trail updates here..."></textarea>
-    
-    <br><br>
-    
-    <button id="parseBatchBtn">Parse Updates</button>
-    
-    <div id="batchPreview"></div>
-    
-    <br>
-    
-    <button id="publishBatchBtn" style="display:none">
-    Publish Updates
-    </button>
-
-    <hr />
     <section class="settings-section">
 
       <h3>Trail Configuration</h3>
@@ -155,35 +79,6 @@
       </button>
     
       <textarea id="config-output" rows="12" readonly hidden></textarea>
-    
-    </section>
-
-    <hr>
-
-    <section id="batch-import">
-    
-      <h3>Batch Import</h3>
-    
-      <p>Paste trail updates exported from NotePlan.</p>
-    
-      <textarea
-        id="batchInput"
-        rows="12"
-        style="width:100%"
-        placeholder="Paste NotePlan updates here..."
-      ></textarea>
-    
-      <br><br>
-    
-      <button id="parseBatchBtn">Parse Updates</button>
-    
-      <div id="batchPreview"></div>
-    
-      <br>
-    
-      <button id="publishBatchBtn" style="display:none;">
-        Publish Updates
-      </button>
     
     </section>
 
