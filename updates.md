@@ -9,10 +9,9 @@ nav: updates
   <h3 class="updates-title">Trail Updates</h3>
 
   <div class="update-card">
-    <div class="update-date">Apr 19, 2026</div>
-    <div class="update-mile">Mile: 0.0</div>
-    <div class="update-text"> Day 1:
-    Let' see how the page break get's handled here. I'm expecting <b>a lot</b> of tweaking before it's all said and done.
+    <div class="update-date">Apr 19, 2026 • Day 1</div>
+    <div class="update-mile">Mile: 11.4</div>
+    <div class="update-text"> Let' see how the page break get's handled here. I'm expecting <b>a lot</b> of tweaking before it's all said and done.
     </div>
   </div>
   
