@@ -140,6 +140,41 @@ ${body}
 `;
 }
 
+function buildMarkdownFromData({ date, title, mile, location = "", tags = [], body }) {
+
+  const slug = generateSlug(date, title);
+
+  const tagsYaml = `[${tags.map(t => `"${t}"`).join(', ')}]`;
+
+  const locationYaml = `location: "${location}"`;
+
+  return `---
+schemaVersion: 1
+date: ${date}
+mile: ${mile}
+title: "${title}"
+slug: "${slug}"
+${locationYaml}
+tags: ${tagsYaml}
+---
+
+${body}
+`;
+}
+
+function buildIndexEntryFromData({ date, title, mile }) {
+
+  const slug = generateSlug(date, title);
+
+  return `{
+  "slug": "${slug}",
+  "date": "${date}",
+  "mile": ${mile},
+  "title": "${title}",
+  "file": "${slug}.md"
+},`;
+}
+
 function downloadFile(filename, content) {
   const blob = new Blob([content], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
