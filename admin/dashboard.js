@@ -337,7 +337,7 @@ function parseEntry(entry) {
 
     if (line.startsWith("Mile:")) {
       const m = parseFloat(line.replace("Mile:", "").trim());
-      mile = isNaN(m) ? "" : m.toFixed(1);
+      mile = isNaN(m) ? null : Math.round(m * 10) / 10;
     }
 
     if (line.trim() === "---")
