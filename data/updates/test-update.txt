@@ -1,6 +1,6 @@
 ---
 schemaVersion: 1
-date: 2026-03-05
+date: Mar 5, 2026
 mile: 12.3
 title: "First Test Update"
 slug: "2026-03-05-first-test"
