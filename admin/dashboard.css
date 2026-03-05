@@ -187,3 +187,15 @@ button {
   margin:8px 0;
   font-size:14px;
 }
+
+/* ---- Batch Import Preview Cards ---- */
+
+.batch-card {
+  border: 1px solid var(--border-color, #444);
+  background: var(--card-bg, #1e1e1e);
+  color: var(--text-color, #e6e6e6);
+  padding: 12px 14px;
+  margin-top: 12px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
