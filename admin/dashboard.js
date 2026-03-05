@@ -353,18 +353,48 @@ function parseEntry(entry) {
   return { title, date, mile, body };
 
 }
-  // Parse Button
-  parseBatchBtn.addEventListener("click", () => {
 
-    const text = batchInput.value;
-  
-    batchEntries = parseBatch(text);
-  
-    console.log("Parsed entries:", batchEntries);
-  
-    publishBatchBtn.hidden = batchEntries.length === 0;
-  
+function renderBatchPreview(entries) {
+
+  batchPreview.innerHTML = "";
+
+  entries.forEach(e => {
+
+    const card = document.createElement("div");
+
+    const mileDisplay =
+      e.mile !== null && e.mile !== undefined
+        ? Number(e.mile).toFixed(1)
+        : "?";
+
+    card.className = "batch-card";
+
+    card.innerHTML = `
+      <strong>${e.title || "Untitled Update"}</strong><br>
+      Mile ${mileDisplay}<br>
+      <em>${e.date}</em><br><br>
+      ${e.body.slice(0,200)}
+      <hr>
+    `;
+
+    batchPreview.appendChild(card);
+
   });
+
+}
+
+  // Parse Button
+parseBatchBtn.addEventListener("click", () => {
+
+  const text = batchInput.value;
+
+  batchEntries = parseBatch(text);
+
+  renderBatchPreview(batchEntries);
+
+  publishBatchBtn.hidden = batchEntries.length === 0;
+
+});
 
 async function loadExistingConfig() {
 
