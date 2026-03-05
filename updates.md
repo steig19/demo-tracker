@@ -6,10 +6,11 @@ nav: updates
 
 <div class="updates">
 
-  <h2 class="updates-title">Trail Updates</h2>
+  <h3 class="updates-title">Trail Updates</h3>
 
   <div class="update-card">
     <div class="update-date">Feb 2, 2026</div>
+    <div class="update-mile">17.5</div>
     <div class="update-text">
       Reached the next town. Took a rest day, resupply done.
     </div>
@@ -17,6 +18,7 @@ nav: updates
 
   <div class="update-card">
     <div class="update-date">Feb 1, 2026</div>
+    <div class="update-mile">11.4</div>
     <div class="update-text">
       First day on trail. Legs are good. Weather perfect.
     </div>
