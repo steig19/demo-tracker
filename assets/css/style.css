@@ -187,7 +187,7 @@ a:hover{ text-decoration: underline; }
 }
 
 .updates-title{
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   background: rgba(17,22,28,.72);
   border: 1px solid rgba(232,238,245,.12);
   border-radius: 16px;
@@ -207,21 +207,20 @@ a:hover{ text-decoration: underline; }
 }
 
 .update-date{
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 900;
   color: rgba(232,238,245,.95);
   margin-bottom: 6px;
 }
 
 .update-text{
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(232,238,245,.88);
   line-height: 1.2;
 }
 
 .update-mile{
-  margin-top: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(232,238,245,.70);
   line-height: 1.2;
 }
