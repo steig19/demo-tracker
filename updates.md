@@ -15,6 +15,6 @@ nav: updates
     </div>
   </div>
 
-  <div class="update-note">(Older updates at the bottom)</div>
+  <div class="update-note"><a>(href="{{ '/data/updates' | relative_url }}">Past Updates</a>)</div>
 
 </div>
