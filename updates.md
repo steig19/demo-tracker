@@ -9,16 +9,9 @@ nav: updates
   <h2 class="updates-title">Trail Updates</h2>
 
   <div class="update-card">
-    <div class="update-date">Feb 2, 2026</div>
-    <div class="update-text">
-      Reached the next town. Took a rest day, resupply done.
-    </div>
-  </div>
-
-  <div class="update-card">
-    <div class="update-date">Feb 1, 2026</div>
-    <div class="update-text">
-      First day on trail. Legs are good. Weather perfect.
+    <div class="update-date">Apr 19, 2026 • Day 1</div>
+    <div class="update-mile">Mile: 11.4</div>
+    <div class="update-text"> It's just so unbelievable that I'm actually hiking the PCT after 40+ years of dreaming about it. I am so grateful for the support and encouragement of my wife, family, and friends.
     </div>
   </div>
 
