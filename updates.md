@@ -11,7 +11,7 @@ nav: updates
   <div class="update-card">
     <div class="update-date">Mar 19, 2026 • One Month Away</div>
     <div class="update-mile">Mile: 0.0</div>
-    <div class="update-text">It all begins at the southern terminus of the PCT on April 19th. I'll be hiking over 2,600 miles on my way from the Mexico to Canada. Thanks for following along!
+    <div class="update-text">It all begins at the southern terminus of the PCT on April 19th. I'll be hiking over 2,600 miles on my way from Mexico to Canada. Thanks for following along!
     </div>
   </div>
 
