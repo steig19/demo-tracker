@@ -352,6 +352,18 @@ function parseEntry(entry) {
 
 }
 
+  parseBatchBtn.addEventListener("click", () => {
+
+    const text = batchInput.value;
+  
+    batchEntries = parseBatch(text);
+  
+    console.log("Parsed entries:", batchEntries);
+  
+    publishBatchBtn.hidden = batchEntries.length === 0;
+  
+  });
+
 async function loadExistingConfig() {
 
   try {
