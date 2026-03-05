@@ -392,7 +392,7 @@ parseBatchBtn.addEventListener("click", () => {
 
   renderBatchPreview(batchEntries);
 
-  publishBatchBtn.hidden = batchEntries.length === 0;
+  publishBatchBtn.style.display = batchEntries.length ? "inline-block" : "none";
 
 });
 
