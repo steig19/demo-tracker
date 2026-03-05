@@ -306,6 +306,52 @@ const publishBatchBtn = document.getElementById("publishBatchBtn");
 
 let batchEntries = [];
 
+function parseBatch(text) {
+
+  const chunks = text.split("=== UPDATE ===");
+
+  return chunks
+    .map(c => c.trim())
+    .filter(Boolean)
+    .map(parseEntry)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+}
+
+function parseEntry(entry) {
+
+  const lines = entry.split("\n");
+
+  let title = "";
+  let date = "";
+  let mile = "";
+  let bodyStart = 0;
+
+  lines.forEach((line, i) => {
+
+    if (line.startsWith("Title:"))
+      title = line.replace("Title:", "").trim();
+
+    if (line.startsWith("Date:"))
+      date = line.replace("Date:", "").trim();
+
+    if (line.startsWith("Mile:"))
+      mile = parseFloat(line.replace("Mile:", "").trim());
+
+    if (line.trim() === "---")
+      bodyStart = i + 1;
+
+  });
+
+  const body = lines.slice(bodyStart).join("\n").trim();
+
+  if (!date || date === "auto")
+    date = new Date().toISOString().slice(0,10);
+
+  return { title, date, mile, body };
+
+}
+
 async function loadExistingConfig() {
 
   try {
