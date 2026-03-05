@@ -158,6 +158,35 @@
     
     </section>
 
+    <hr>
+
+    <section id="batch-import">
+    
+      <h3>Batch Import</h3>
+    
+      <p>Paste trail updates exported from NotePlan.</p>
+    
+      <textarea
+        id="batchInput"
+        rows="12"
+        style="width:100%"
+        placeholder="Paste NotePlan updates here..."
+      ></textarea>
+    
+      <br><br>
+    
+      <button id="parseBatchBtn">Parse Updates</button>
+    
+      <div id="batchPreview"></div>
+    
+      <br>
+    
+      <button id="publishBatchBtn" hidden>
+        Publish Updates
+      </button>
+    
+    </section>
+
   </main>
 
   <script src="dashboard.js"></script>
