@@ -382,8 +382,48 @@ function renderBatchPreview(entries) {
   });
 
 }
+// Publish Button Handler
+publishBatchBtn.addEventListener("click", () => {
 
-  // Parse Button
+  if (!batchEntries.length) return;
+
+  const confirmPublish = confirm(
+    `Generate ${batchEntries.length} updates?\n\n` +
+    `Oldest: ${batchEntries[0].date}\n` +
+    `Newest: ${batchEntries[batchEntries.length - 1].date}`
+  );
+
+  if (!confirmPublish) return;
+
+  const indexEntries = [];
+
+  batchEntries.forEach(entry => {
+
+    const slug = generateSlug(entry.date, entry.title);
+
+    // Generate markdown file
+    const markdown = buildMarkdownFromData(entry);
+    downloadFile(`${slug}.md`, markdown);
+
+    // Build index entry
+    const indexEntry = buildIndexEntryFromData(entry);
+    indexEntries.push(indexEntry);
+
+  });
+
+  // Show combined index entries
+  const combinedIndex = indexEntries.join("\n");
+
+  console.log("Batch Index Entries:\n\n" + combinedIndex);
+
+  alert(
+    `${batchEntries.length} update files generated.\n\n` +
+    `Index entries have been printed to the console.`
+  );
+
+});
+
+// Parse Button
 parseBatchBtn.addEventListener("click", () => {
 
   const text = batchInput.value;
