@@ -182,7 +182,7 @@ a:hover{ text-decoration: underline; }
    Trail Updates – STABILe & SCOPED (no Markdown-Hack, no :has)
    ========================================================= */
 .updates{
-  max-width: 760px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
@@ -192,7 +192,7 @@ a:hover{ text-decoration: underline; }
   border: 1px solid rgba(232,238,245,.12);
   border-radius: 16px;
   padding: 14px 16px;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 850;
   letter-spacing: .2px;
 }
@@ -215,7 +215,13 @@ a:hover{ text-decoration: underline; }
 
 .update-text{
   color: rgba(232,238,245,.88);
-  line-height: 1.5;
+  line-height: 1.2;
+}
+
+.update-mile{
+  margin-top: 6px;
+  color: rgba(232,238,245,.70);
+  line-height: 1.2;
 }
 
 .update-note{
