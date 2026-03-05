@@ -1,5 +1,5 @@
 ---
 layout: default
 title: Updates
-nav: updates
+nav: past-updates
 ---
