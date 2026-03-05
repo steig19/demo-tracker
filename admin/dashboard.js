@@ -297,6 +297,15 @@ function handleGenerateConfig() {
 
 generateConfigBtn.addEventListener('click', handleGenerateConfig);
 
+// ---- Batch Import ----
+
+const batchInput = document.getElementById("batchInput");
+const parseBatchBtn = document.getElementById("parseBatchBtn");
+const batchPreview = document.getElementById("batchPreview");
+const publishBatchBtn = document.getElementById("publishBatchBtn");
+
+let batchEntries = [];
+
 async function loadExistingConfig() {
 
   try {
