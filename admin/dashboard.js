@@ -1,20 +1,4 @@
 // Element references
-let lastGeneratedSlug = null;
-const WORD_LIMIT = 250;
-const dateEl = document.getElementById('update-date');
-const titleEl = document.getElementById('update-title');
-const mileEl = document.getElementById('update-mile');
-const locationEl = document.getElementById('update-location');
-const tagsEl = document.getElementById('update-tags');
-const bodyEl = document.getElementById('update-body');
-
-const indexSection = document.getElementById('index-section');
-const indexOutput = document.getElementById('index-output');
-const copyIndexBtn = document.getElementById('copy-index-btn');
-
-const wordCountEl = document.getElementById('word-count');
-const slugOutput = document.getElementById('slug-output');
-const generateBtn = document.getElementById('generate-btn');
 
 const configTrailIdEl = document.getElementById('config-trail-id');
 const configTrailNameEl = document.getElementById('config-trail-name');
@@ -30,10 +14,6 @@ const configIncludeZeroEl = document.getElementById('config-include-zero');
 const generateConfigBtn = document.getElementById('generate-config-btn');
 const loadConfigBtn = document.getElementById('load-config-btn');
 const configOutput = document.getElementById('config-output');
-
-
-// Attach to button
-generateBtn.addEventListener('click', handleGenerateClick);
 
 // Trail Config
 function buildTrailConfig() {
