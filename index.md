@@ -116,7 +116,7 @@ body_extra: |
   </div>
 
   <div class="card">
-    <div class="card-title">Insights</div>
+    <div class="card-title">Overview</div>
     <ul id="insightsList" class="list"></ul>
   </div>
 </div>
