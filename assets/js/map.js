@@ -553,7 +553,7 @@
   }
 
   // -----------------------
-  // Map setup
+  // basemap style
   // -----------------------
   const style = {
     version: 8,
@@ -563,7 +563,8 @@
         tiles: [
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         ],
-        tileSize: 256
+        tileSize: 256,
+        attribution: "Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community"
       },
       topo: {
         type: "raster",
@@ -572,51 +573,65 @@
           "https://b.tile.opentopomap.org/{z}/{x}/{y}.png",
           "https://c.tile.opentopomap.org/{z}/{x}/{y}.png"
         ],
-        tileSize: 256
+        tileSize: 256,
+        attribution: "© OpenTopoMap (CC-BY-SA) / © OpenStreetMap contributors"
       }
     },
     layers: [
-      { id: "sat", type: "raster", source: "sat", layout: { visibility: "visible" } },
-      { id: "topo", type: "raster", source: "topo", layout: { visibility: "none" } }
+      { id: "sat-layer", type: "raster", source: "sat", layout: { visibility: "visible" } },
+      { id: "topo-layer", type: "raster", source: "topo", layout: { visibility: "none" } }
     ]
   };
 
   const map = new maplibregl.Map({
     container: "map",
     style,
-    center: [-90, 44],
-    zoom: 6
+    center: [9.17, 48.78],
+    zoom: 11
   });
 
   map.addControl(new maplibregl.NavigationControl(), "top-right");
 
   // -----------------------
-  // Basemap toggle
+  // Basemap toggle control
   // -----------------------
-  class BasemapToggle {
+class BasemapToggle {
     onAdd(map) {
-      const btn = document.createElement("button");
-      btn.textContent = "🗺️";
-      btn.style.cssText = `
-        width:36px;height:36px;border-radius:8px;
-        border:1px solid rgba(255,255,255,.3);
-        background:rgba(0,0,0,.6);color:white;
-        cursor:pointer;
-      `;
+      this._map = map;
 
-      btn.onclick = () => {
-        const satVis = map.getLayoutProperty("sat", "visibility") !== "none";
-        map.setLayoutProperty("sat", "visibility", satVis ? "none" : "visible");
-        map.setLayoutProperty("topo", "visibility", satVis ? "visible" : "none");
-        btn.textContent = satVis ? "🛰️" : "🗺️";
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "pct-toggle-btn";
+      btn.title = "Toggle basemap (Satellite / Topo)";
+      btn.setAttribute("aria-label", "Toggle basemap");
+
+      const setIcon = () => {
+        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
+        btn.textContent = satVis ? "🗺️" : "🛰️";
       };
+
+      btn.addEventListener("click", () => {
+        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
+        map.setLayoutProperty("sat-layer", "visibility", satVis ? "none" : "visible");
+        map.setLayoutProperty("topo-layer", "visibility", satVis ? "visible" : "none");
+        setIcon();
+      });
 
       const wrap = document.createElement("div");
       wrap.className = "maplibregl-ctrl maplibregl-ctrl-group";
+      wrap.style.marginTop = "6px";
+      wrap.style.overflow = "hidden";
       wrap.appendChild(btn);
-      return wrap;
+
+      map.on("idle", setIcon);
+      this._container = wrap;
+      setIcon();
+      return this._container;
     }
-    onRemove() {}
+    onRemove() {
+      this._container?.parentNode?.removeChild(this._container);
+      this._map = undefined;
+    }
   }
 
   map.addControl(new BasemapToggle(), "top-right");
