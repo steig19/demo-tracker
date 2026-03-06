@@ -297,8 +297,8 @@
       }
     },
     layers: [
-      { id: "sat", type: "raster", source: "sat", layout: { visibility: "visible" } },
-      { id: "topo", type: "raster", source: "topo", layout: { visibility: "none" } }
+      { id: "sat-layer", type: "raster", source: "sat", layout: { visibility: "visible" } },
+      { id: "topo-layer", type: "raster", source: "topo", layout: { visibility: "none" } }
     ]
   };
 
