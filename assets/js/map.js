@@ -297,8 +297,8 @@
       }
     },
     layers: [
-      { id: "sat-layer", type: "raster", source: "sat", layout: { visibility: "visible" } },
-      { id: "topo-layer", type: "raster", source: "topo", layout: { visibility: "none" } }
+      { id: "sat", type: "raster", source: "sat", layout: { visibility: "visible" } },
+      { id: "topo", type: "raster", source: "topo", layout: { visibility: "none" } }
     ]
   };
 
@@ -325,14 +325,14 @@
       btn.setAttribute("aria-label", "Toggle basemap");
 
       const setIcon = () => {
-        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
+        const satVis = map.getLayoutProperty("sat", "visibility") !== "none";
         btn.textContent = satVis ? "🗺️" : "🛰️";
       };
 
       btn.addEventListener("click", () => {
-        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
-        map.setLayoutProperty("sat-layer", "visibility", satVis ? "none" : "visible");
-        map.setLayoutProperty("topo-layer", "visibility", satVis ? "visible" : "none");
+        const satVis = map.getLayoutProperty("sat", "visibility") !== "none";
+        map.setLayoutProperty("sat", "visibility", satVis ? "none" : "visible");
+        map.setLayoutProperty("topo", "visibility", satVis ? "visible" : "none");
         setIcon();
       });
 
