@@ -222,24 +222,29 @@
         <div class="pct-chip-grid">
 
           <div class="pct-chip">
-            <div class="label">Total Time</div>
-            <div class="value">${fmtDuration(timeS)}</div>
-            <div class="sub">${stats.days.trail} trail days</div>
-          </div>
-
-          <div class="pct-chip">
             <div class="label">Avg Miles / Trail Day</div>
             <div class="value">${fmtNumber(avgTrail, 1)} mi</div>
+            <div class="sub">${stats.days.trail} trail days</div>
           </div>
 
           <div class="pct-chip">
             <div class="label">Avg Miles / Calendar Day</div>
             <div class="value">${fmtNumber(avgCal, 1)} mi</div>
+            <div class="sub">${stats.days.calendar}</div>
           </div>
 
           <div class="pct-chip">
             <div class="label">Avg Speed</div>
             <div class="value">${fmtNumber(avgSpeed, 1)} mi/h</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Days</div>
+            <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
+          </div>
+          <div class="pct-daychips">
+          ${dayChip("Longest Day", stats.extremes.longestDay)}
+          ${dayChip("Shortest Day", stats.extremes.shortestDay)}
           </div>
 
         </div>
@@ -304,24 +309,11 @@
         </div>
 
         <div class="pct-section">
-          <div class="pct-section-title">Timeline</div>
+          <div class="pct-section-title">Section Mile Markers</div>
           <div class="pct-rows">
             <div class="pct-row"><span>First Day</span><b>${first}</b></div>
             <div class="pct-row"><span>Latest Day</span><b>${last}</b></div>
-            <div class="pct-row">
-              <span>Days</span>
-              <b>
-                ${stats.days.trail} trail ·
-                ${stats.days.nero} nero ·
-                ${stats.days.zero} zero
-              </b>
-            </div>
           </div>
-        </div>
-
-        <div class="pct-daychips">
-          ${dayChip("Longest Day", stats.extremes.longestDay)}
-          ${dayChip("Shortest Day", stats.extremes.shortestDay)}
         </div>
 
       </div>
