@@ -263,8 +263,12 @@
             <div class="label">Days</div>
             <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
           </div>
-          <div class="pct-daychips">${dayChip("Longest Day", stats.extremes.longestDay)}</div>
-          <div class="pct-daychips">${dayChip("Shortest Day", stats.extremes.shortestDay)}</div>
+          <div class="pct-daychips">
+          <span>${dayChip("Longest Day", stats.extremes.longestDay)}</span>
+          </div>
+          <div class="pct-daychips">
+          <span>${dayChip("Shortest Day", stats.extremes.shortestDay)}</span>
+          </div>
 
         </div>
       </div>
@@ -311,8 +315,11 @@
         <div class="pct-section">
           <div class="pct-section-title">Section Mile Markers</div>
           <div class="pct-rows">
-            <div class="pct-row"><span>First Day</span><b>${first}</b></div>
-            <div class="pct-row"><span>Latest Day</span><b>${last}</b></div>
+            <div class="pct-row"><span>Desert Section</span><b>Mile 0.0 to 566.5</b></div>
+            <div class="pct-row"><span>Sierra Section</span><b>Mile 566.5 to 1093.4</b></div>
+            <div class="pct-row"><span>Northern California Section</span><b>Mile 1093.4 to 1720.4</b></div>
+            <div class="pct-row"><span>Oregon Section</span><b>Mile 1720.4 to 2150.2</b></div>
+            <div class="pct-row"><span>Washington Section</span><b>Mile 2150.2 to 2655.8</b></div>
           </div>
         </div>
 
