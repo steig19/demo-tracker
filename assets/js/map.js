@@ -313,7 +313,7 @@
         </div>
 
         <div class="pct-section">
-          <div class="pct-section-title"><span>Northbound Mile Markers</span>Mile</div>
+          <div class="pct-section-title"><span>Northbound Mile Markers</div>
           <div class="pct-rows">
             <div class="pct-row"><span>Desert Section</span>0.0 to 566.5</div>
             <div class="pct-row"><span>Sierra Section</span>566.5 to 1093.4</div>
@@ -433,7 +433,7 @@
         padding: 10px 12px;
       }
       .pct-section-title{
-        font-weight: 900;
+        font-weight: 800;
         font-size: 13px;
         letter-spacing: .2px;
         color: rgba(245,248,255,.90);
