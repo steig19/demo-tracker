@@ -431,7 +431,7 @@
         padding: 10px 12px;
       }
       .pct-section-title{
-        font-weight: 800;
+        font-weight: 700;
         font-size: 13px;
         letter-spacing: .2px;
         color: rgba(245,248,255,.90);
@@ -468,7 +468,7 @@
       /* Day chips row (Longest/Shortest only) */
       .pct-daychips{
         display:grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 10px;
         margin-top: 10px;
       }
