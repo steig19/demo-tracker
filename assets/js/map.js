@@ -588,13 +588,6 @@
     zoom: 6
   });
 
-  const map = new maplibregl.Map({
-    container: "map",
-    style,
-    center: [-90, 44],
-    zoom: 6
-  });
-
   map.addControl(new maplibregl.NavigationControl(), "top-right");
 
   // -----------------------
