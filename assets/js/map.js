@@ -607,7 +607,7 @@ class BasemapToggle {
       };
 
       btn.onclick = () => {
-        const satVis = map.getLayoutProperty("sat", "visibility") !== "none";
+        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
         map.setLayoutProperty("sat", "visibility", satVis ? "none" : "visible");
         map.setLayoutProperty("topo", "visibility", satVis ? "visible" : "none");
         btn.textContent = satVis ? "🛰️" : "🗺️";
@@ -615,6 +615,8 @@ class BasemapToggle {
 
       const wrap = document.createElement("div");
       wrap.className = "maplibregl-ctrl maplibregl-ctrl-group";
+      wrap.style.marginTop = "6px";
+      wrap.style.overflow = "hidden";
       wrap.appendChild(btn);
       return wrap;
     }
