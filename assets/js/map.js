@@ -737,6 +737,7 @@ class BasemapToggle {
   }
 
   map.on("load", () => {
+    injectUICSSOnce();
     refresh();
     setInterval(refresh, 60_000);
   });
