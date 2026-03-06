@@ -298,7 +298,7 @@
           <div class="pct-rows">
             <div class="pct-row">
               <span>PCT Completed</span>
-              <b>${fmtNumber(pctCompleted, 1)}% · ${fmtNumber(miles, 1)} mi of ${TRAIL_TOTAL_MI}</b>
+              <b>${fmtNumber(pctCompleted, 1)}% · ${stats.totals.miles} mi of ${TRAIL_TOTAL_MI}</b>
             </div>
             <div class="pct-progressbar">
               <div class="pct-progressfill" style="width:${pctCompleted}%;"></div>
