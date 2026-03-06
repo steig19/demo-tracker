@@ -49,283 +49,6 @@
     return parts.join(" ");
   }
 
-  function computeStats(track) {
-    const MI_PER_M = 0.000621371;
-
-    // --- configuration (safe defaults for now) ---
-    const MIN_DAY_MILES = 8;        // below this = Nero
-    const ROLLING_DAYS = 7;
-
-    const feats = track?.features ?? [];
-
-    // -------------------------------
-    // 1. Aggregate activities by day
-    // -------------------------------
-    const daysMap = new Map();
-    let firstTs = null;
-    let lastTs = null;
-
-    for (const f of feats) {
-      const p = f.properties || {};
-      const distM = Number(p.distance_m);
-      const timeS = Number(p.moving_time_s || 0);
-      const start = p.start_date;
-
-      if (!start || !Number.isFinite(distM)) continue;
-
-      const dayKey = start.slice(0, 10); // YYYY-MM-DD
-      const ts = Date.parse(dayKey);
-
-      if (Number.isFinite(ts)) {
-        if (firstTs === null || ts < firstTs) firstTs = ts;
-        if (lastTs === null || ts > lastTs) lastTs = ts;
-      }
-
-      const entry = daysMap.get(dayKey) || { distM: 0, timeS: 0 };
-      entry.distM += distM;
-      entry.timeS += timeS;
-      daysMap.set(dayKey, entry);
-    }
-
-    // -------------------------------
-    // 2. Walk calendar days
-    // -------------------------------
-    let trailDays = 0;
-    let neroDays = 0;
-    let zeroDays = 0;
-    let restDays = 0;
-
-    let totalDistM = 0;
-    let totalTimeS = 0;
-
-    let longestDay = null;
-    let shortestDay = null;
-
-    const trailDayMiles = [];
-    const calendarMiles = [];
-
-    if (firstTs !== null && lastTs !== null) {
-      for (let ts = firstTs; ts <= lastTs; ts += 86400000) {
-        const dayKey = new Date(ts).toISOString().slice(0, 10);
-        const entry = daysMap.get(dayKey);
-
-        const distM = entry ? entry.distM : 0;
-        const timeS = entry ? entry.timeS : 0;
-        const miles = distM * MI_PER_M;
-
-        if (distM === 0) {
-          zeroDays++;
-          restDays++;
-          calendarMiles.push(0);
-          continue;
-        }
-
-        if (miles < MIN_DAY_MILES) {
-          neroDays++;
-          calendarMiles.push(miles);
-          continue;
-        }
-
-        // Trail day
-        trailDays++;
-        totalDistM += distM;
-        totalTimeS += timeS;
-
-        trailDayMiles.push(miles);
-        calendarMiles.push(miles);
-
-        const item = {
-          miles,
-          timeS,
-          date: dayKey
-        };
-
-        if (!longestDay || miles > longestDay.miles) longestDay = item;
-        if (!shortestDay || miles < shortestDay.miles) shortestDay = item;
-      }
-    }
-
-    // -------------------------------
-    // 3. Averages
-    // -------------------------------
-    const totalMiles = totalDistM * MI_PER_M;
-
-    const avgMilesPerTrailDay =
-      trailDays > 0 ? totalMiles / trailDays : null;
-
-    const avgMilesPerCalendarDay =
-      calendarMiles.length > 0
-        ? calendarMiles.reduce((a, b) => a + b, 0) / calendarMiles.length
-        : null;
-
-    let rollingAvgMiles = null;
-    if (trailDayMiles.length > 0) {
-      const slice = trailDayMiles.slice(-ROLLING_DAYS);
-      rollingAvgMiles = slice.reduce((a, b) => a + b, 0) / slice.length;
-    }
-
-    // -------------------------------
-    // 4. Return stable object
-    // -------------------------------
-    return {
-      totals: {
-        miles: totalMiles,
-        timeSeconds: totalTimeS
-      },
-      days: {
-        trail: trailDays,
-        nero: neroDays,
-        zero: zeroDays,
-        rest: restDays,
-        calendar: calendarMiles.length
-      },
-      averages: {
-        trailDay: avgMilesPerTrailDay,
-        calendarDay: avgMilesPerCalendarDay,
-        rollingTrailDay: rollingAvgMiles
-      },
-      extremes: {
-        longestDay,
-        shortestDay
-      },
-      timeline: {
-        firstTs,
-        lastTs
-      }
-    };
-  }
-
-  function setStatsUI(stats) {
-    if (!statsListEl) return;
-    if (!stats || !statsListEl) return;
-
-    const miles = stats.totals.miles;
-    const timeS = stats.totals.timeSeconds;
-
-    const avgTrail = stats.averages.trailDay;
-    const avgCal = stats.averages.calendarDay;
-    const rolling = stats.averages.rollingTrailDay;
-
-    const hours = timeS / 3600;
-    const avgSpeed = hours > 0 ? miles / hours : null;
-
-    function dayChip(label, item) {
-      if (!item) {
-        return `
-          <div class="pct-chip">
-            <div class="label">${label}</div>
-            <div class="pct-day-meta">—</div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="pct-chip">
-          <div class="label">${label}</div>
-          <div class="pct-day-meta">
-            ${fmtNumber(item.miles, 1)} mi · ${fmtDuration(item.timeS)}
-          </div>
-          <div class="pct-day-date">${item.date}</div>
-        </div>
-      `;
-    }
-
-    statsListEl.innerHTML = `
-      <div class="pct-stats-wrap">
-
-        <div class="pct-stat-hero">
-          <div class="label">Total Distance</div>
-          <div class="big">
-            <div class="primary">${fmtNumber(miles, 1)} mi</div>
-          </div>
-        </div>
-
-        <div class="pct-chip-grid">
-
-          <div class="pct-chip">
-            <div class="label">Avg Miles / Trail Day</div>
-            <div class="value">${fmtNumber(avgTrail, 1)} mi</div>
-            <div class="sub">${stats.days.trail} trail days</div>
-          </div>
-
-          <div class="pct-chip">
-            <div class="label">Avg Miles / Calendar Day</div>
-            <div class="value">${fmtNumber(avgCal, 1)} mi</div>
-            <div class="sub">${stats.days.calendar} calendar days</div>
-          </div>
-
-          <div class="pct-chip">
-            <div class="label">Avg Speed</div>
-            <div class="value">${fmtNumber(avgSpeed, 1)} mi/h</div>
-          </div>
-
-          <div class="pct-chip">
-            <div class="label">Days</div>
-            <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
-          </div>
-          <div class="pct-daychips">${dayChip("Longest Day", stats.extremes.longestDay)}
-          </div>
-          <div class="pct-daychips">${dayChip("Shortest Day", stats.extremes.shortestDay)}
-          </div>
-
-        </div>
-      </div>
-    `;
-  }
-
-  function setInsightsUI(stats) {
-    if (!insightsListEl) return;
-    if (!stats || !insightsListEl) return;
-
-    const miles = stats.totals.miles;
-    const pctCompleted = (stats.totals.miles / TRAIL_TOTAL_MI) * 100;
-    const remainingMi = Math.max(0, TRAIL_TOTAL_MI - stats.totals.miles);
-
-    const first = stats.timeline.firstTs
-      ? new Date(stats.timeline.firstTs).toLocaleDateString()
-      : "—";
-
-    const last = stats.timeline.lastTs
-      ? new Date(stats.timeline.lastTs).toLocaleDateString()
-      : "—";
-
-
-
-    insightsListEl.innerHTML = `
-      <div class="pct-sections">
-
-        <div class="pct-section">
-          <div class="pct-section-title">Progress</div>
-          <div class="pct-rows">
-            <div class="pct-row">
-              <span>PCT Completed</span>
-              <b>${fmtNumber(pctCompleted, 1)}% · ${fmtNumber(miles, 1)} mi of ${fmtNumber(TRAIL_TOTAL_MI, 1)}</b>
-            </div>
-            <div class="pct-progressbar">
-              <div class="pct-progressfill" style="width:${pctCompleted}%;"></div>
-            </div>
-            <div class="pct-row">
-              <span>Remaining</span>
-              <b>${fmtNumber(remainingMi, 1)} mi</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="pct-section">
-          <div class="pct-section-title"><span>Northbound Mile Markers</div>
-          <div class="pct-rows">
-            <div class="pct-row"><span>Desert Section</span>0.0 to 566.5</div>
-            <div class="pct-row"><span>Sierra Section</span>566.5 to 1093.4</div>
-            <div class="pct-row"><span>Northern California Section</span>1093.4 to 1720.4</div>
-            <div class="pct-row"><span>Oregon Section</span>1720.4 to 2150.2</div>
-            <div class="pct-row"><span>Washington Section</span>2150.2 to 2655.8</div>
-          </div>
-        </div>
-
-      </div>
-    `;
-  }
-
   function loadJson(url) {
     return fetch(url, { cache: "no-store" })
       .then(r => {
@@ -654,6 +377,283 @@ class BasemapToggle {
       <strong>${props.name || "Activity"}</strong><br/>
       ${fmtDate(props.start_date)}<br/>
       ${(props.distance_m / 1609.34).toFixed(1)} mi
+    `;
+  }
+
+  function computeStats(track) {
+    const MI_PER_M = 0.000621371;
+
+    // --- configuration (safe defaults for now) ---
+    const MIN_DAY_MILES = 8;        // below this = Nero
+    const ROLLING_DAYS = 7;
+
+    const feats = track?.features ?? [];
+
+    // -------------------------------
+    // 1. Aggregate activities by day
+    // -------------------------------
+    const daysMap = new Map();
+    let firstTs = null;
+    let lastTs = null;
+
+    for (const f of feats) {
+      const p = f.properties || {};
+      const distM = Number(p.distance_m);
+      const timeS = Number(p.moving_time_s || 0);
+      const start = p.start_date;
+
+      if (!start || !Number.isFinite(distM)) continue;
+
+      const dayKey = start.slice(0, 10); // YYYY-MM-DD
+      const ts = Date.parse(dayKey);
+
+      if (Number.isFinite(ts)) {
+        if (firstTs === null || ts < firstTs) firstTs = ts;
+        if (lastTs === null || ts > lastTs) lastTs = ts;
+      }
+
+      const entry = daysMap.get(dayKey) || { distM: 0, timeS: 0 };
+      entry.distM += distM;
+      entry.timeS += timeS;
+      daysMap.set(dayKey, entry);
+    }
+
+    // -------------------------------
+    // 2. Walk calendar days
+    // -------------------------------
+    let trailDays = 0;
+    let neroDays = 0;
+    let zeroDays = 0;
+    let restDays = 0;
+
+    let totalDistM = 0;
+    let totalTimeS = 0;
+
+    let longestDay = null;
+    let shortestDay = null;
+
+    const trailDayMiles = [];
+    const calendarMiles = [];
+
+    if (firstTs !== null && lastTs !== null) {
+      for (let ts = firstTs; ts <= lastTs; ts += 86400000) {
+        const dayKey = new Date(ts).toISOString().slice(0, 10);
+        const entry = daysMap.get(dayKey);
+
+        const distM = entry ? entry.distM : 0;
+        const timeS = entry ? entry.timeS : 0;
+        const miles = distM * MI_PER_M;
+
+        if (distM === 0) {
+          zeroDays++;
+          restDays++;
+          calendarMiles.push(0);
+          continue;
+        }
+
+        if (miles < MIN_DAY_MILES) {
+          neroDays++;
+          calendarMiles.push(miles);
+          continue;
+        }
+
+        // Trail day
+        trailDays++;
+        totalDistM += distM;
+        totalTimeS += timeS;
+
+        trailDayMiles.push(miles);
+        calendarMiles.push(miles);
+
+        const item = {
+          miles,
+          timeS,
+          date: dayKey
+        };
+
+        if (!longestDay || miles > longestDay.miles) longestDay = item;
+        if (!shortestDay || miles < shortestDay.miles) shortestDay = item;
+      }
+    }
+
+    // -------------------------------
+    // 3. Averages
+    // -------------------------------
+    const totalMiles = totalDistM * MI_PER_M;
+
+    const avgMilesPerTrailDay =
+      trailDays > 0 ? totalMiles / trailDays : null;
+
+    const avgMilesPerCalendarDay =
+      calendarMiles.length > 0
+        ? calendarMiles.reduce((a, b) => a + b, 0) / calendarMiles.length
+        : null;
+
+    let rollingAvgMiles = null;
+    if (trailDayMiles.length > 0) {
+      const slice = trailDayMiles.slice(-ROLLING_DAYS);
+      rollingAvgMiles = slice.reduce((a, b) => a + b, 0) / slice.length;
+    }
+
+    // -------------------------------
+    // 4. Return stable object
+    // -------------------------------
+    return {
+      totals: {
+        miles: totalMiles,
+        timeSeconds: totalTimeS
+      },
+      days: {
+        trail: trailDays,
+        nero: neroDays,
+        zero: zeroDays,
+        rest: restDays,
+        calendar: calendarMiles.length
+      },
+      averages: {
+        trailDay: avgMilesPerTrailDay,
+        calendarDay: avgMilesPerCalendarDay,
+        rollingTrailDay: rollingAvgMiles
+      },
+      extremes: {
+        longestDay,
+        shortestDay
+      },
+      timeline: {
+        firstTs,
+        lastTs
+      }
+    };
+  }
+
+  function setStatsUI(stats) {
+    if (!statsListEl) return;
+    if (!stats || !statsListEl) return;
+
+    const miles = stats.totals.miles;
+    const timeS = stats.totals.timeSeconds;
+
+    const avgTrail = stats.averages.trailDay;
+    const avgCal = stats.averages.calendarDay;
+    const rolling = stats.averages.rollingTrailDay;
+
+    const hours = timeS / 3600;
+    const avgSpeed = hours > 0 ? miles / hours : null;
+
+    function dayChip(label, item) {
+      if (!item) {
+        return `
+          <div class="pct-chip">
+            <div class="label">${label}</div>
+            <div class="pct-day-meta">—</div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="pct-chip">
+          <div class="label">${label}</div>
+          <div class="pct-day-meta">
+            ${fmtNumber(item.miles, 1)} mi · ${fmtDuration(item.timeS)}
+          </div>
+          <div class="pct-day-date">${item.date}</div>
+        </div>
+      `;
+    }
+
+    statsListEl.innerHTML = `
+      <div class="pct-stats-wrap">
+
+        <div class="pct-stat-hero">
+          <div class="label">Total Distance</div>
+          <div class="big">
+            <div class="primary">${fmtNumber(miles, 1)} mi</div>
+          </div>
+        </div>
+
+        <div class="pct-chip-grid">
+
+          <div class="pct-chip">
+            <div class="label">Avg Miles / Trail Day</div>
+            <div class="value">${fmtNumber(avgTrail, 1)} mi</div>
+            <div class="sub">${stats.days.trail} trail days</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Avg Miles / Calendar Day</div>
+            <div class="value">${fmtNumber(avgCal, 1)} mi</div>
+            <div class="sub">${stats.days.calendar} calendar days</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Avg Speed</div>
+            <div class="value">${fmtNumber(avgSpeed, 1)} mi/h</div>
+          </div>
+
+          <div class="pct-chip">
+            <div class="label">Days</div>
+            <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
+          </div>
+          <div class="pct-daychips">${dayChip("Longest Day", stats.extremes.longestDay)}
+          </div>
+          <div class="pct-daychips">${dayChip("Shortest Day", stats.extremes.shortestDay)}
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+
+  function setInsightsUI(stats) {
+    if (!insightsListEl) return;
+    if (!stats || !insightsListEl) return;
+
+    const miles = stats.totals.miles;
+    const pctCompleted = (stats.totals.miles / TRAIL_TOTAL_MI) * 100;
+    const remainingMi = Math.max(0, TRAIL_TOTAL_MI - stats.totals.miles);
+
+    const first = stats.timeline.firstTs
+      ? new Date(stats.timeline.firstTs).toLocaleDateString()
+      : "—";
+
+    const last = stats.timeline.lastTs
+      ? new Date(stats.timeline.lastTs).toLocaleDateString()
+      : "—";
+
+
+
+    insightsListEl.innerHTML = `
+      <div class="pct-sections">
+
+        <div class="pct-section">
+          <div class="pct-section-title">Progress</div>
+          <div class="pct-rows">
+            <div class="pct-row">
+              <span>PCT Completed</span>
+              <b>${fmtNumber(pctCompleted, 1)}% · ${fmtNumber(miles, 1)} mi of ${fmtNumber(TRAIL_TOTAL_MI, 1)}</b>
+            </div>
+            <div class="pct-progressbar">
+              <div class="pct-progressfill" style="width:${pctCompleted}%;"></div>
+            </div>
+            <div class="pct-row">
+              <span>Remaining</span>
+              <b>${fmtNumber(remainingMi, 1)} mi</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="pct-section">
+          <div class="pct-section-title"><span>Northbound Mile Markers</div>
+          <div class="pct-rows">
+            <div class="pct-row"><span>Desert Section</span>0.0 to 566.5</div>
+            <div class="pct-row"><span>Sierra Section</span>566.5 to 1093.4</div>
+            <div class="pct-row"><span>Northern California Section</span>1093.4 to 1720.4</div>
+            <div class="pct-row"><span>Oregon Section</span>1720.4 to 2150.2</div>
+            <div class="pct-row"><span>Washington Section</span>2150.2 to 2655.8</div>
+          </div>
+        </div>
+
+      </div>
     `;
   }
 
