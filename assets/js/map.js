@@ -209,26 +209,26 @@
     const hours = timeS / 3600;
     const avgSpeed = hours > 0 ? miles / hours : null;
 
-      function dayChip(label, item) {
-        if (!item) {
-          return `
-            <div class="pct-chip">
-              <div class="label">${label}</div>
-              <div class="pct-day-meta">—</div>
-            </div>
-          `;
-        }
-  
+    function dayChip(label, item) {
+      if (!item) {
         return `
           <div class="pct-chip">
             <div class="label">${label}</div>
-            <div class="pct-day-meta">
-              ${fmtNumber(item.miles, 1)} mi · ${fmtDuration(item.timeS)}
-            </div>
-            <div class="pct-day-date">${item.date}</div>
+            <div class="pct-day-meta">—</div>
           </div>
         `;
       }
+
+      return `
+        <div class="pct-chip">
+          <div class="label">${label}</div>
+          <div class="pct-day-meta">
+            ${fmtNumber(item.miles, 1)} mi · ${fmtDuration(item.timeS)}
+          </div>
+          <div class="pct-day-date">${item.date}</div>
+        </div>
+      `;
+    }
 
     statsListEl.innerHTML = `
       <div class="pct-stats-wrap">
