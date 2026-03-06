@@ -309,7 +309,7 @@
     zoom: 6
   });
 
-  map.addControl(new maplibregl.NavigationControl(), "top-right");
+
 
   // -----------------------
   // Basemap toggle control
