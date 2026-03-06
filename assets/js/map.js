@@ -209,6 +209,16 @@
     const hours = timeS / 3600;
     const avgSpeed = hours > 0 ? miles / hours : null;
 
+    function dayChip(label, item) {
+      if (!item) {
+        return `
+          <div class="pct-chip">
+            <div class="label">${label}</div>
+            <div class="pct-day-meta">—</div>
+          </div>
+        `;
+      }
+
     statsListEl.innerHTML = `
       <div class="pct-stats-wrap">
 
