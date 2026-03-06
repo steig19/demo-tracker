@@ -18,7 +18,7 @@
   // Helpers
   // -----------------------
 
-  const TRAIL_TOTAL_MI = 1158; // Ice Age Trail
+  const TRAIL_TOTAL_MI = 1158.3; // Ice Age Trail
   
   function fmtDate(ts) {
     try { return new Date(ts).toLocaleString(); }
@@ -277,6 +277,7 @@
     if (!insightsListEl) return;
     if (!stats || !insightsListEl) return;
 
+    const miles = stats.totals.miles;
     const pctCompleted = (stats.totals.miles / TRAIL_TOTAL_MI) * 100;
     const remainingMi = Math.max(0, TRAIL_TOTAL_MI - stats.totals.miles);
 
@@ -298,7 +299,7 @@
           <div class="pct-rows">
             <div class="pct-row">
               <span>PCT Completed</span>
-              <b>${fmtNumber(pctCompleted, 1)}% · ${stats.totals.miles} mi of ${TRAIL_TOTAL_MI}</b>
+              <b>${fmtNumber(pctCompleted, 1)}% · ${fmtNumber(miles, 1)} mi of ${fmtNumber(TRAIL_TOTAL_MI, 1)}</b>
             </div>
             <div class="pct-progressbar">
               <div class="pct-progressfill" style="width:${pctCompleted}%;"></div>
