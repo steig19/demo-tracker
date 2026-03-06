@@ -601,11 +601,6 @@ class BasemapToggle {
       btn.title = "Toggle basemap (Satellite / Topo)";
       btn.setAttribute("aria-label", "Toggle basemap");
 
-      const setIcon = () => {
-        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
-        btn.textContent = satVis ? "🗺️" : "🛰️";
-      };
-
       btn.onclick = () => {
         const satVis = map.getLayoutProperty("sat", "visibility") !== "none";
         map.setLayoutProperty("sat", "visibility", satVis ? "none" : "visible");
