@@ -251,7 +251,7 @@
           <div class="pct-chip">
             <div class="label">Avg Miles / Calendar Day</div>
             <div class="value">${fmtNumber(avgCal, 1)} mi</div>
-            <div class="sub">${stats.days.calendar}</div>
+            <div class="sub">${stats.days.calendar} calendar days</div>
           </div>
 
           <div class="pct-chip">
@@ -263,10 +263,8 @@
             <div class="label">Days</div>
             <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
           </div>
-          <div class="pct-daychips">
-          ${dayChip("Longest Day", stats.extremes.longestDay)}
-          ${dayChip("Shortest Day", stats.extremes.shortestDay)}
-          </div>
+          <div class="pct-daychips">${dayChip("Longest Day", stats.extremes.longestDay)}</div>
+          <div class="pct-daychips">${dayChip("Shortest Day", stats.extremes.shortestDay)}</div>
 
         </div>
       </div>
