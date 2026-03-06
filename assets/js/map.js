@@ -263,11 +263,9 @@
             <div class="label">Days</div>
             <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
           </div>
-          <div class="pct-chip">
-          ${dayChip("Longest Day", stats.extremes.longestDay)}
+          <div class="pct-daychips">${dayChip("Longest Day", stats.extremes.longestDay)}
           </div>
-          <div class="pct-chip">
-          ${dayChip("Shortest Day", stats.extremes.shortestDay)}
+          <div class="pct-daychips">${dayChip("Shortest Day", stats.extremes.shortestDay)}
           </div>
 
         </div>
