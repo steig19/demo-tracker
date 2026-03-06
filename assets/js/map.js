@@ -563,8 +563,7 @@
         tiles: [
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         ],
-        tileSize: 256,
-        attribution: "Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+        tileSize: 256
       },
       topo: {
         type: "raster",
@@ -573,21 +572,27 @@
           "https://b.tile.opentopomap.org/{z}/{x}/{y}.png",
           "https://c.tile.opentopomap.org/{z}/{x}/{y}.png"
         ],
-        tileSize: 256,
-        attribution: "© OpenTopoMap (CC-BY-SA) / © OpenStreetMap contributors"
+        tileSize: 256
       }
     },
     layers: [
-      { id: "sat-layer", type: "raster", source: "sat", layout: { visibility: "visible" } },
-      { id: "topo-layer", type: "raster", source: "topo", layout: { visibility: "none" } }
+      { id: "sat", type: "raster", source: "sat", layout: { visibility: "visible" } },
+      { id: "topo", type: "raster", source: "topo", layout: { visibility: "none" } }
     ]
   };
 
   const map = new maplibregl.Map({
     container: "map",
     style,
-    center: [9.17, 48.78],
-    zoom: 11
+    center: [-90, 44],
+    zoom: 6
+  });
+
+  const map = new maplibregl.Map({
+    container: "map",
+    style,
+    center: [-90, 44],
+    zoom: 6
   });
 
   map.addControl(new maplibregl.NavigationControl(), "top-right");
