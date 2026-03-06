@@ -314,27 +314,43 @@
   // -----------------------
   // Basemap toggle control
   // -----------------------
-class BasemapToggle {
+  class BasemapToggle {
     onAdd(map) {
+      this._map = map;
+
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "pct-toggle-btn";
       btn.title = "Toggle basemap (Satellite / Topo)";
       btn.setAttribute("aria-label", "Toggle basemap");
 
-      btn.onclick = () => {
-        const satVis = map.getLayoutProperty("sat", "visibility") !== "none";
-        map.setLayoutProperty("sat", "visibility", satVis ? "none" : "visible");
-        map.setLayoutProperty("topo", "visibility", satVis ? "visible" : "none");
-        btn.textContent = satVis ? "🛰️" : "🗺️";
+      const setIcon = () => {
+        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
+        btn.textContent = satVis ? "🗺️" : "🛰️";
       };
+
+      btn.addEventListener("click", () => {
+        const satVis = map.getLayoutProperty("sat-layer", "visibility") !== "none";
+        map.setLayoutProperty("sat-layer", "visibility", satVis ? "none" : "visible");
+        map.setLayoutProperty("topo-layer", "visibility", satVis ? "visible" : "none");
+        setIcon();
+      });
 
       const wrap = document.createElement("div");
       wrap.className = "maplibregl-ctrl maplibregl-ctrl-group";
+      wrap.style.marginTop = "6px";
+      wrap.style.overflow = "hidden";
       wrap.appendChild(btn);
-      return wrap;
+
+      map.on("idle", setIcon);
+      this._container = wrap;
+      setIcon();
+      return this._container;
     }
-    onRemove() {}
+    onRemove() {
+      this._container?.parentNode?.removeChild(this._container);
+      this._map = undefined;
+    }
   }
 
   map.addControl(new BasemapToggle(), "top-right");
