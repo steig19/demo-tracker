@@ -682,7 +682,7 @@
           <div class="label">Total Distance & Elevation Gain</div>
           <div class="big">
             <div class="primary">${fmtNumber(miles, 1)} mi</div>
-            <div class="secondary">${fmtInt(elevFt)} ft</div>
+            <div class="secondary"> ⛰ ${fmtInt(elevFt)} ft</div>
           </div>
         </div>
 
