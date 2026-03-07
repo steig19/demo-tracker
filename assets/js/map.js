@@ -315,6 +315,7 @@
   // Basemap toggle control
   // -----------------------
   class BasemapToggle {
+    this._map = map;
     onAdd(map) {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -351,7 +352,9 @@
     }
   }
 
-  map.addControl(new BasemapToggle(), "top-right");
+  map.on("style.load", () => {
+    map.addControl(new BasemapToggle(), "top-right");
+  });
 
   // -----------------------
   // Marker
