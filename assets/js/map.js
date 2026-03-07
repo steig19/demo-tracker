@@ -59,6 +59,11 @@
     return parts.join(" ");
   }
 
+  function activityTypeLabel(props) {
+    const t = (props.type || "").toString().trim();
+    return t || "Activity";
+  }
+
   function loadJson(url) {
     return fetch(url, { cache: "no-store" })
       .then(r => {
