@@ -497,9 +497,6 @@
 
       if (!start || !Number.isFinite(distM)) continue;
 
-      const e = pickElevationMeters(p);
-      if (e != null) { elevM += e; elevCount++; }
-
       const dayKey = start.slice(0, 10); // YYYY-MM-DD
       const ts = Date.parse(dayKey);
 
