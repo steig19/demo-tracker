@@ -64,6 +64,7 @@
     return parts.join(" ");
   }
 
+  function toFt(m) { return m * FT_PER_M; }
 
   function pickElevationMeters(props) {
     const candidates = [
