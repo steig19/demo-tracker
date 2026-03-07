@@ -272,7 +272,7 @@
         box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
         backdrop-filter: blur(10px);
         padding: 12px 14px !important;
-        max-width: 360px;
+        min-width: 260px;
       }
       .maplibregl-popup-close-button{
         color: rgba(255,255,255,.8) !important;
