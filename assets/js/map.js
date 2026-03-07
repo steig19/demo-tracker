@@ -631,7 +631,6 @@
 
     const miles = stats.totals.miles;
     const timeS = stats.totals.timeSeconds;
-    const elevSub = s.elevCount ? `${fmtInt(toFt(s.elevM))} ft` : "";
 
     const avgTrail = stats.averages.trailDay;
     const avgCal = stats.averages.calendarDay;
