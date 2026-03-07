@@ -462,7 +462,6 @@
     const MIN_DAY_MILES = 8;        // below this = Nero
     const ROLLING_DAYS = 7;
 
-    const totalKm = toKm(distM);
     const totalMi = toMi(distM);
 
     const feats = track?.features ?? [];
