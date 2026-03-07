@@ -473,7 +473,7 @@
           <div class="k">Date</div><div class="v">${fmtDate(props.start_date)}</div>
           <div class="k">Distance</div><div class="v">${(props.distance_m / 1609.34).toFixed(1)} mi</div>
           <div class="k">Time</div><div class="v">${time}</div>
-          <div class="k">Elevation</div><div class="v"> ft</div>
+          <div class="k">Elevation</div><div class="v">${elevStr}</div>
         </div>
       </div>
     `;
@@ -502,6 +502,7 @@
       const distM = Number(p.distance_m);
       const timeS = Number(p.moving_time_s || 0);
       const start = p.start_date;
+      const elevM = pickElevationMeters(p);
 
       if (!start || !Number.isFinite(distM)) continue;
 
@@ -530,6 +531,7 @@
 
     let totalDistM = 0;
     let totalTimeS = 0;
+    let totalElevM = 0;
 
     let longestDay = null;
     let shortestDay = null;
@@ -568,6 +570,7 @@
         trailDays++;
         totalDistM += distM;
         totalTimeS += timeS;
+        if (Number.isFinite(elevM)) totalElevM += elevM;
 
         trailDayMiles.push(miles);
         calendarMiles.push(miles);
@@ -608,6 +611,7 @@
     return {
       totals: {
         miles: totalMiles,
+        elevationM: totalElevM,
         timeSeconds: totalTimeS
       },
       days: {
@@ -639,6 +643,7 @@
 
     const miles = stats.totals.miles;
     const timeS = stats.totals.timeSeconds;
+    const elevFt = toFt(stats.totals.elevationM || 0);
 
     const avgTrail = stats.averages.trailDay;
     const avgCal = stats.averages.calendarDay;
@@ -675,7 +680,7 @@
           <div class="label">Total Distance & Elevation Gain</div>
           <div class="big">
             <div class="primary">${fmtNumber(miles, 1)} mi</div>
-            <div class="secondary"> ft</div>
+            <div class="secondary">${fmtInt(elevFt)} ft</div>
           </div>
         </div>
 
