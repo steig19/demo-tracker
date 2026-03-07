@@ -43,6 +43,11 @@
     });
   }   
 
+  function fmtInt(n) {
+    if (!Number.isFinite(n)) return "—";
+    return Math.round(n).toLocaleString();
+  }
+
   function fmtDuration(totalSeconds) {
     if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return "—";
 
