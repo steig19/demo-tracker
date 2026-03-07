@@ -471,7 +471,7 @@
           <div class="k">Date</div><div class="v">${fmtDate(props.start_date)}</div>
           <div class="k">Distance</div><div class="v">${(props.distance_m / 1609.34).toFixed(1)} mi</div>
           <div class="k">Time</div><div class="v">${time}</div>
-          <div class="k">Elevation</div><div class="v">${fmtInt(toFt(elevM))} ft</div>
+          <div class="k">Elevation</div><div class="v"> ft</div>
         </div>
       </div>
     `;
@@ -670,10 +670,10 @@
       <div class="pct-stats-wrap">
 
         <div class="pct-stat-hero">
-          <div class="label">Total Distance</div>
+          <div class="label">Total Distance & Elevation Gain</div>
           <div class="big">
             <div class="primary">${fmtNumber(miles, 1)} mi</div>
-            <div class="secondary">${fmtInt(toFt(elevM))} ft Total Elevation Gain</div>
+            <div class="secondary"> ft</div>
           </div>
         </div>
 
