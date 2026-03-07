@@ -63,7 +63,7 @@
 
     return parts.join(" ");
   }
-  
+
   function toMi(m) { return m * MI_PER_M; }
   function toFt(m) { return m * FT_PER_M; }
 
@@ -82,6 +82,7 @@
     }
     return null;
   }
+
 
   function activityTypeLabel(props) {
     const t = (props.type || "").toString().trim();
@@ -271,7 +272,7 @@
         box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
         backdrop-filter: blur(10px);
         padding: 12px 14px !important;
-        min-width: 260px;
+        max-width: 360px;
       }
       .maplibregl-popup-close-button{
         color: rgba(255,255,255,.8) !important;
@@ -439,6 +440,12 @@
     }
     map.setFilter("track-hover", ["==", ["to-number", ["get", "strava_id"]], Number(id)]);
   }
+
+  // Remove start, move constants below: function buildPopupHTML(props) {
+
+    //Moved old popup div section
+  // Remove end function: }
+
 
   // -----------------------
   // Popups
@@ -803,6 +810,27 @@
             "line-width": 5,
             "line-opacity": 0.9
           }
+        });
+
+        map.addLayer({
+          id: "track-hover",
+          type: "line",
+          source: "track",
+          paint: { "line-color": "rgba(255,255,255,0.92)", "line-width": 7, "line-opacity": 0.75, "line-blur": 0.6 },
+          filter: ["==", ["get", "strava_id"], -1]
+        });
+
+        map.on("mousemove", "track-main", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+          const f = e.features && e.features[0];
+          if (!f) return;
+          const id = (f.properties && f.properties.strava_id) ? f.properties.strava_id : null;
+          if (id !== hoveredId) setHover(id);
+        });
+
+        map.on("mouseleave", "track-main", () => {
+          map.getCanvas().style.cursor = "";
+          setHover(null);
         });
 
         map.on("click", "track-main", e => {
