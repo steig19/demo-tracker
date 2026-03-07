@@ -440,12 +440,6 @@
     map.setFilter("track-hover", ["==", ["to-number", ["get", "strava_id"]], Number(id)]);
   }
 
-  // Remove start, move constants below: function buildPopupHTML(props) {
-
-    //Moved old popup div section
-  // Remove end function: }
-
-
   // -----------------------
   // Popups
   // -----------------------
