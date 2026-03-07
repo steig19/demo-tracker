@@ -533,7 +533,6 @@
 
     let totalDistM = 0;
     let totalTimeS = 0;
-    let totalElevM = 0;
 
     let longestDay = null;
     let shortestDay = null;
