@@ -1,8 +1,5 @@
 (async function () {
-  /* =========================================================
-     PHASE 1 — MAP + DATA ONLY (NO STATS)
-     ========================================================= */
-
+  
   // Remove hero/status card if present
   const heroEl = document.querySelector(".hero");
   if (heroEl) heroEl.remove();
@@ -18,11 +15,24 @@
   // Helpers
   // -----------------------
 
+  // Added MI and FT conversions here
+  const MI_PER_M = 0.000621371;
+  const FT_PER_M = 3.28084;
+
   const TRAIL_TOTAL_MI = 1158.3; // Ice Age Trail
   
   function fmtDate(ts) {
     try { return new Date(ts).toLocaleString(); }
     catch { return "—"; }
+  }
+
+  function fmtDateShort(ts) {
+    try {
+      const d = new Date(ts);
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" });
+    } catch {
+      return "—";
+    }
   }
 
   function fmtNumber(n, digits = 1) {
@@ -385,21 +395,63 @@
     return el;
   }
 
+
+    // ---------- ADDED: layers / interactivity ----------
+  let didFitOnce = false;
+  // Added below: let popup;
+  let hoveredId = null;
+
+  function setHover(id) {
+    hoveredId = id;
+    if (!map.getLayer("track-hover")) return;
+    if (id == null) {
+      map.setFilter("track-hover", ["==", ["get", "strava_id"], -1]);
+      return;
+    }
+    map.setFilter("track-hover", ["==", ["to-number", ["get", "strava_id"]], Number(id)]);
+  }
+
+  // Remove start, move constants below: function buildPopupHTML(props) {
+
+    //Moved old popup div section
+  // Remove end function: }
+
+
   // -----------------------
   // Popups
   // -----------------------
   let popup;
 
   function popupHTML(props) {
+    const type = activityTypeLabel(props);
+    const start = props.start_date ? fmtDate(props.start_date) : "—";
+
+    const distM = Number(props.distance_m);
+    const mi = Number.isFinite(distM) ? toMi(distM) : null;
+
+    const tSec = Number(props.moving_time_s);
+    const time = Number.isFinite(tSec) ? fmtDuration(tSec) : "—";
+
+    const elevM = pickElevationMeters(props);
+    const distStr = mi == null ? "—" : `${fmtNumber(mi, 1)} mi`;
+    const elevStr = elevM == null ? "—" : `${fmtInt(toFt(elevM))} ft`;
+
     return `
-      <strong>${props.name || "Activity"}</strong><br/>
-      ${fmtDate(props.start_date)}<br/>
-      ${(props.distance_m / 1609.34).toFixed(1)} mi
+      <div class="pct-popup">
+        <div class="pct-popup-title">${props.name || "Activity"}</div>
+        <div class="pct-popup-grid">
+          <div class="k">Date</div><div class="v">${fmtDate(props.start_date)}</div>
+          <div class="k">Distance</div><div class="v">${(props.distance_m / 1609.34).toFixed(1)} mi</div>
+          <div class="k">Time</div><div class="v">${time}</div>
+          <div class="k">Elevation</div><div class="v">${fmtInt(toFt(elevM))} ft</div>
+        </div>
+      </div>
     `;
+    // Removed: abbreviated return script
   }
 
   function computeStats(track) {
-    const MI_PER_M = 0.000621371;
+    // Removed - Added avove: const MI_PER_M = 0.000621371;
 
     // --- configuration (safe defaults for now) ---
     const MIN_DAY_MILES = 8;        // below this = Nero
@@ -436,6 +488,7 @@
       daysMap.set(dayKey, entry);
     }
 
+
     // -------------------------------
     // 2. Walk calendar days
     // -------------------------------
@@ -457,6 +510,11 @@
       for (let ts = firstTs; ts <= lastTs; ts += 86400000) {
         const dayKey = new Date(ts).toISOString().slice(0, 10);
         const entry = daysMap.get(dayKey);
+        const dateLabel = new Date(ts).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        });
 
         const distM = entry ? entry.distM : 0;
         const timeS = entry ? entry.timeS : 0;
@@ -486,7 +544,7 @@
         const item = {
           miles,
           timeS,
-          date: dayKey
+          date: dateLabel
         };
 
         if (!longestDay || miles > longestDay.miles) longestDay = item;
