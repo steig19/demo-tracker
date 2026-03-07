@@ -496,13 +496,14 @@
     const daysMap = new Map();
     let firstTs = null;
     let lastTs = null;
+    let totalElevM = 0;
 
     for (const f of feats) {
       const p = f.properties || {};
       const distM = Number(p.distance_m);
       const timeS = Number(p.moving_time_s || 0);
+      const elevM = pickElevationMeters(p) || 0;
       const start = p.start_date;
-      const elevM = pickElevationMeters(p);
 
       if (!start || !Number.isFinite(distM)) continue;
 
@@ -514,9 +515,10 @@
         if (lastTs === null || ts > lastTs) lastTs = ts;
       }
 
-      const entry = daysMap.get(dayKey) || { distM: 0, timeS: 0 };
+      const entry = daysMap.get(dayKey) || { distM: 0, timeS: 0, elevM: 0 };
       entry.distM += distM;
       entry.timeS += timeS;
+      entry.elevM += elevM;
       daysMap.set(dayKey, entry);
     }
 
@@ -551,6 +553,7 @@
 
         const distM = entry ? entry.distM : 0;
         const timeS = entry ? entry.timeS : 0;
+        const elevM = entry ? entry.elevM : 0;
         const miles = distM * MI_PER_M;
 
         if (distM === 0) {
@@ -570,7 +573,7 @@
         trailDays++;
         totalDistM += distM;
         totalTimeS += timeS;
-        if (Number.isFinite(elevM)) totalElevM += elevM;
+        totalElevM += elevM;
 
         trailDayMiles.push(miles);
         calendarMiles.push(miles);
