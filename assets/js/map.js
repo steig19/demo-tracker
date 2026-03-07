@@ -59,6 +59,23 @@
     return parts.join(" ");
   }
 
+
+  function pickElevationMeters(props) {
+    const candidates = [
+      props.elevation_m,
+      props.elev_m,
+      props.elev_gain_m,
+      props.total_elevation_gain,
+      props.total_elevation_gain_m,
+      props.elevation_gain_m
+    ];
+    for (const v of candidates) {
+      const n = Number(v);
+      if (Number.isFinite(n) && n >= 0) return n;
+    }
+    return null;
+  }
+
   function activityTypeLabel(props) {
     const t = (props.type || "").toString().trim();
     return t || "Activity";
@@ -462,8 +479,7 @@
     const MIN_DAY_MILES = 8;        // below this = Nero
     const ROLLING_DAYS = 7;
 
-    const totalMi = toMi(distM);
-
+   
     const feats = track?.features ?? [];
 
     // -------------------------------
@@ -480,6 +496,9 @@
       const start = p.start_date;
 
       if (!start || !Number.isFinite(distM)) continue;
+
+      const e = pickElevationMeters(p);
+      if (e != null) { elevM += e; elevCount++; }
 
       const dayKey = start.slice(0, 10); // YYYY-MM-DD
       const ts = Date.parse(dayKey);
@@ -615,6 +634,7 @@
 
     const miles = stats.totals.miles;
     const timeS = stats.totals.timeSeconds;
+    const elevSub = s.elevCount ? `${fmtInt(toFt(s.elevM))} ft` : "";
 
     const avgTrail = stats.averages.trailDay;
     const avgCal = stats.averages.calendarDay;
@@ -651,6 +671,7 @@
           <div class="label">Total Distance</div>
           <div class="big">
             <div class="primary">${fmtNumber(miles, 1)} mi</div>
+            <div class="secondary">${fmtInt(toFt(elevM))} ft Total Elevation Gain</div>
           </div>
         </div>
 
