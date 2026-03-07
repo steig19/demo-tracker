@@ -315,8 +315,9 @@
   // Basemap toggle control
   // -----------------------
   class BasemapToggle {
-    this._map = map;
     onAdd(map) {
+      this._map = map;
+      
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "pct-toggle-btn";
