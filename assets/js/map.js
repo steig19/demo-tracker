@@ -63,7 +63,8 @@
 
     return parts.join(" ");
   }
-
+  
+  function toMi(m) { return m * MI_PER_M; }
   function toFt(m) { return m * FT_PER_M; }
 
   function pickElevationMeters(props) {
@@ -86,9 +87,6 @@
     const t = (props.type || "").toString().trim();
     return t || "Activity";
   }
-
-  function toMi(m) { return m * MI_PER_M; }
-  function toFt(m) { return m * FT_PER_M; }
 
   function loadJson(url) {
     return fetch(url, { cache: "no-store" })
