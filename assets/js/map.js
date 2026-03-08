@@ -418,7 +418,7 @@
       left:-10px;top:-10px;
       width:34px;height:34px;
       border-radius:50%;
-      border:2px solid rgba(252,79,20,.7);
+      border:2px solid rgba(237,28,36,.7);
       animation:pulse 1.6s ease-out infinite;
     `;
     el.appendChild(ring);
