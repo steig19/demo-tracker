@@ -828,8 +828,8 @@
         const colorExpr = [
           "case",
           ["==", ["%", ["to-number", ["get", "i"]], 2], 0],
-          "#00008b",
-          "#fb4f14"
+          "#fc4c02",
+          "#ff8c00"
         ];
 
         map.addLayer({
