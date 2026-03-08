@@ -408,7 +408,7 @@
     el.style.width = "14px";
     el.style.height = "14px";
     el.style.borderRadius = "50%";
-    el.style.background = "#2bff88";
+    el.style.background = "#ba160c";
     el.style.position = "relative";
     el.style.boxShadow = "0 0 20px rgba(0,0,0,.5)";
 
@@ -808,8 +808,8 @@
         source: "pct",
         paint: {
           "line-color": "#ffcc00",
-          "line-width": 5,
-          "line-opacity": 0.9
+          "line-width": 4,
+          "line-opacity": 0.6
         }
       });
 
@@ -819,8 +819,8 @@
         source: "iat",
         paint: {
           "line-color": "#ffcc00",
-          "line-width": 5,
-          "line-opacity": 0.9
+          "line-width": 4,
+          "line-opacity": 0.6
         }
       });
 
