@@ -758,7 +758,7 @@
         </div>
 
         <div class="pct-section">
-          <div class="pct-section-title"><span>Northbound Mile Markers · Starting: April 19, 2026</div>
+          <div class="pct-section-title"><span>Northbound Mile Markers · Start April 19, 2026</div>
           <div class="pct-rows">
             <div class="pct-row"><span>Desert Section</span>0.0 to 566.5</div>
             <div class="pct-row"><span>Sierra Section</span>566.5 to 1093.4</div>
@@ -767,12 +767,6 @@
             <div class="pct-row"><span>Washington Section</span>2150.2 to 2655.8</div>
           </div>
         </div>
-        <div class="pct-section">
-          <div class="pct-section-title">Key:</div>
-          <div class="pct-rows">
-            <div class="pct-row"><span>PCT line</span> <span style='color: #FF0000;'><b>----------</b></span></div>
-            <div class="pct-row"><span>Hiked Trail lines</span> <span style='color: #fb4f14;'><b>-----</span><span style='color: #4b0082;'>-----</b></span></div>
-          </div>
       </div>
     `;
   }
