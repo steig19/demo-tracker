@@ -808,7 +808,7 @@
         type: "line",
         source: "pct",
         paint: {
-          "line-color": "#ffcc00",
+          "line-color": "#03B1FC",
           "line-width": 4,
           "line-opacity": 0.6
         }
@@ -819,7 +819,7 @@
         type: "line",
         source: "iat",
         paint: {
-          "line-color": "#ffcc00",
+          "line-color": "#03B1FC",
           "line-width": 4,
           "line-opacity": 0.6
         }
