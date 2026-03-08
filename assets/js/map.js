@@ -796,10 +796,28 @@
         });
       }
 
+      if (!map.getSource("iat")) {
+        map.addSource("iat", {
+          type: "geojson",
+          data: "./data/iat-trail.geojson"
+        });
+      }
+
       map.addLayer({
         id: "pct-line",
         type: "line",
         source: "pct",
+        paint: {
+          "line-color": "#ff0000",
+          "line-width": 3,
+          "line-opacity": 0.6
+        }
+      });
+
+      map.addLayer({
+        id: "iat-line",
+        type: "line",
+        source: "iat",
         paint: {
           "line-color": "#ff0000",
           "line-width": 3,
