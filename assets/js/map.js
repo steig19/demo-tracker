@@ -789,6 +789,52 @@
       if (!map.getSource("track")) {
         map.addSource("track", { type: "geojson", data: track });
 
+      if (!map.getSource("pct")) {
+        map.addSource("pct", {
+          type: "geojson",
+          data: "./data/PCT_SoCal.geojson"
+        });
+      }
+
+      if (!map.getSource("pct")) {
+        map.addSource("pct", {
+          type: "geojson",
+          data: "./data/PCT_CenCal.geojson"
+        });
+      }
+
+      if (!map.getSource("pct")) {
+        map.addSource("pct", {
+          type: "geojson",
+          data: "./data/PCT_NoCal.geojson"
+        });
+      }
+
+      if (!map.getSource("pct")) {
+        map.addSource("pct", {
+          type: "geojson",
+          data: "./data/PCT_OR.geojson"
+        });
+      }
+
+      if (!map.getSource("pct")) {
+        map.addSource("pct", {
+          type: "geojson",
+          data: "./data/PCT_WA.geojson"
+        });
+      }
+
+      map.addLayer({
+        id: "pct-line",
+        type: "line",
+        source: "pct",
+        paint: {
+          "line-color": "#ff0000",
+          "line-width": 3,
+          "line-opacity": 0.6
+        }
+      });
+
         const colorExpr = [
           "case",
           ["==", ["%", ["to-number", ["get", "i"]], 2], 0],
