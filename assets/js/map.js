@@ -767,10 +767,12 @@
             <div class="pct-row"><span>Washington Section</span>2150.2 to 2655.8</div>
           </div>
         </div>
-        <div class="pct-row">Key:</div
-        <div class="pct-row"><span>PCT line</span> <span style='color: #FF0000;'>-----------</span></div>
-        <div class="pct-row"><span>Hiked Trail lines</span> <span style='color: #fb4f14;'>------</span> <span style='color: #4b0082;'>------</span></div>
-
+        <div class="pct-section">
+          <div class="pct-section-title">Key:</div>
+          <div class="pct-rows">
+            <div class="pct-row"><span>PCT line</span> <span style='color: #FF0000;'>-----------</span></div>
+            <div class="pct-row"><span>Hiked Trail lines</span> <span style='color: #fb4f14;'>------</span> <span style='color: #4b0082;'>------</span></div>
+          </div>
       </div>
     `;
   }
