@@ -418,7 +418,7 @@
       left:-10px;top:-10px;
       width:34px;height:34px;
       border-radius:50%;
-      border:2px solid rgba(43,255,136,.6);
+      border:2px solid rgba(186,22,12,.6);
       animation:pulse 1.6s ease-out infinite;
     `;
     el.appendChild(ring);
@@ -765,7 +765,7 @@
             <div class="pct-row"><span>Northern California Section</span>1093.4 to 1720.4</div>
             <div class="pct-row"><span>Oregon Section</span>1720.4 to 2150.2</div>
             <div class="pct-row"><span>Washington Section</span>2150.2 to 2655.8</div>
-            <div class="pct-row"><strong>Pacific Crest Trail Line<span style="#ffcc00;"</span></strong></div>
+            <div class="pct-row"><strong>Pacific Crest Trail Line<span style="#ffcc00;">--------</span></strong></div>
           </div>
         </div>
       </div>
