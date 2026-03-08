@@ -807,7 +807,7 @@
         type: "line",
         source: "pct",
         paint: {
-          "line-color": "#ff0000",
+          "line-color": "#bb3385",
           "line-width": 3,
           "line-opacity": 0.6
         }
@@ -827,8 +827,8 @@
         const colorExpr = [
           "case",
           ["==", ["%", ["to-number", ["get", "i"]], 2], 0],
-          "#2072BA",
-          "#FDB515"
+          "#77b5fe",
+          "#fb4f14"
         ];
 
         map.addLayer({
