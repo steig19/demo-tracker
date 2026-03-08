@@ -807,9 +807,9 @@
         type: "line",
         source: "pct",
         paint: {
-          "line-color": "#bb3385",
-          "line-width": 3,
-          "line-opacity": 0.6
+          "line-color": "#ffcc00",
+          "line-width": 5,
+          "line-opacity": 0.9
         }
       });
 
@@ -818,9 +818,9 @@
         type: "line",
         source: "iat",
         paint: {
-          "line-color": "#ff0000",
-          "line-width": 3,
-          "line-opacity": 0.6
+          "line-color": "#ffcc00",
+          "line-width": 5,
+          "line-opacity": 0.9
         }
       });
 
