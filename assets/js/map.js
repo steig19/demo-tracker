@@ -828,7 +828,7 @@
         const colorExpr = [
           "case",
           ["==", ["%", ["to-number", ["get", "i"]], 2], 0],
-          "#77b5fe",
+          "#00008b",
           "#fb4f14"
         ];
 
