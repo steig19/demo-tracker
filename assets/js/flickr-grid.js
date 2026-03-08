@@ -1,5 +1,5 @@
-const FLICKR_USER = "35469735@N03"; // dein User
-const LIMIT = 30; // Anzahl Bilder
+const FLICKR_USER = "35469735@N03"; // User ID
+const LIMIT = 30; // Galen Steig
 
 const url =
   "https://www.flickr.com/services/feeds/photos_public.gne" +
