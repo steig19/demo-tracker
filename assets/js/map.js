@@ -792,35 +792,7 @@
       if (!map.getSource("pct")) {
         map.addSource("pct", {
           type: "geojson",
-          data: "./data/PCT_SoCal.geojson"
-        });
-      }
-
-      if (!map.getSource("pct")) {
-        map.addSource("pct", {
-          type: "geojson",
-          data: "./data/PCT_CenCal.geojson"
-        });
-      }
-
-      if (!map.getSource("pct")) {
-        map.addSource("pct", {
-          type: "geojson",
-          data: "./data/PCT_NoCal.geojson"
-        });
-      }
-
-      if (!map.getSource("pct")) {
-        map.addSource("pct", {
-          type: "geojson",
-          data: "./data/PCT_OR.geojson"
-        });
-      }
-
-      if (!map.getSource("pct")) {
-        map.addSource("pct", {
-          type: "geojson",
-          data: "./data/PCT_WA.geojson"
+          data: "./data/pct.geojson"
         });
       }
 
