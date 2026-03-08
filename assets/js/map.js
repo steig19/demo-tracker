@@ -792,7 +792,7 @@
       if (!map.getSource("pct")) {
         map.addSource("pct", {
           type: "geojson",
-          data: "./data/centcal.geojson"
+          data: "./data/centca.geojson"
         });
       }
 
