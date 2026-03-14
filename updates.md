@@ -7,7 +7,7 @@ nav: updates
 <div class="updates">
 
   <h2 class="updates-title">Trail Updates</h2>
-  <div class="update-mile">&nbps;&nbps;&nbps;&nbps;Posts will be made as frequently as the networks provide.</div>
+  <div class="update-mile">&emsp;Posts will be made as frequently as the networks provide.</div>
 
   <div class="update-card">
     <div class="update-date">Mar 19, 2026 • One Month Away</div>
