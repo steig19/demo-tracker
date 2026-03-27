@@ -345,8 +345,8 @@
   const map = new maplibregl.Map({
     container: "map",
     style,
-    center: [-116, 32],
-    zoom: 6
+    center: [-122, 42],
+    zoom: 3
   });
 
   map.addControl(new maplibregl.NavigationControl(), "top-right");
