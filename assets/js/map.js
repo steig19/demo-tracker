@@ -345,7 +345,7 @@
   const map = new maplibregl.Map({
     container: "map",
     style,
-    center: [-90, 44],
+    center: [-116, 32],
     zoom: 6
   });
 
