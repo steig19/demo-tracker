@@ -19,7 +19,7 @@
   const MI_PER_M = 0.000621371;
   const FT_PER_M = 3.28084;
 
-  const TRAIL_TOTAL_MI = 1158.3; // Ice Age Trail
+  const TRAIL_TOTAL_MI = 2655.8; // Pacific Crest Trail
   
   function fmtDate(ts) {
     try { return new Date(ts).toLocaleString(); }
