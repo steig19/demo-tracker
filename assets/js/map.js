@@ -345,7 +345,7 @@
   const map = new maplibregl.Map({
     container: "map",
     style,
-    center: [-122, 42],
+    center: [-122, 41],
     zoom: 3.5
   });
 
@@ -760,7 +760,7 @@
         <div class="pct-section">
           <div class="pct-section-title"><span>Northbound Mile Markers · Start April 19, 2026</div>
           <div class="pct-rows">
-            <div class="pct-row"><span style='color: #fc4c02;>Desert Section</span>0.0 to 566.5</div>
+            <div class="pct-row"><span style='color: #fc4c02;'>Desert Section</span>0.0 to 566.5</div>
             <div class="pct-row"><span>Sierra Section</span>566.5 to 1093.4</div>
             <div class="pct-row"><span>Northern California Section</span>1093.4 to 1720.4</div>
             <div class="pct-row"><span>Oregon Section</span>1720.4 to 2150.2</div>
