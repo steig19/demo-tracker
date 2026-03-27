@@ -7,10 +7,10 @@ REFRESH_TOKEN = os.environ["STRAVA_REFRESH_TOKEN"]
 
 # -------- ACTIVE THRU-HIKE CONFIG --------
 
-TRAIL_NAME = "Ice Age Trail"
+TRAIL_NAME = "Pacific Crest Trail"
 
-TRAIL_START = datetime(2025, 8, 3, tzinfo=timezone.utc)
-TRAIL_END   = datetime(2025, 10, 19, tzinfo=timezone.utc)  
+TRAIL_START = datetime(2026, 4, 19, tzinfo=timezone.utc)
+TRAIL_END   = datetime(2026, 10, 1, tzinfo=timezone.utc)  
 # datetime(2026, 9, 30, tzinfo=timezone.utc) or None
 
 ALLOWED_TYPES = {"Hike", "Walk"}  # safest Strava combo
