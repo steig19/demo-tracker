@@ -346,7 +346,7 @@
     container: "map",
     style,
     center: [-122, 42],
-    zoom: 4
+    zoom: 3.5
   });
 
   map.addControl(new maplibregl.NavigationControl(), "top-right");
