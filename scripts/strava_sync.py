@@ -9,7 +9,7 @@ REFRESH_TOKEN = os.environ["STRAVA_REFRESH_TOKEN"]
 
 TRAIL_NAME = "Pacific Crest Trail"
 
-TRAIL_START = datetime(2026, 3, 31, tzinfo=timezone.utc)
+TRAIL_START = datetime(2026, 3, 30, tzinfo=timezone.utc)
 TRAIL_END   = datetime(2026, 10, 1, tzinfo=timezone.utc)  
 # datetime(2026, 9, 30, tzinfo=timezone.utc) or None
 
