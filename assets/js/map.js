@@ -484,7 +484,7 @@
     // Removed - Added avove: const MI_PER_M = 0.000621371;
 
     // --- configuration (safe defaults for now) ---
-    const MIN_DAY_MILES = 8;        // below this = Nero
+    const MIN_DAY_MILES = 1;        // below this = Nero
     const ROLLING_DAYS = 7;
 
    
