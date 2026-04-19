@@ -10,6 +10,13 @@ nav: updates
   <div class="update-mile">&emsp;Updates may not be posted daily.</div>
 
   <div class="update-card">
+    <div class="update-date">Apr 19, 2026 • Day 1</div>
+    <div class="update-mile">Mile: 1.0</div>
+    <div class="update-text"> I can’t believe that I'm actually hiking the PCT after 40+ years of dreaming about it. Day one was much shorter than planned, but the perfect way for me to start - one day, one mile, one trail without expectations. I am so grateful for this opportunity and for the support and encouragement of my wife, family, and friends. Thank you all!
+    </div>
+  </div>
+  
+  <div class="update-card">
     <div class="update-date">Apr 10, 2026 • 9 days out</div>
     <div class="update-mile">Mile: 0.0</div>
     <div class="update-text"> 
