@@ -10,6 +10,14 @@ nav: updates
   <div class="update-mile">&emsp;Updates may not be posted daily.</div>
 
   <div class="update-card">
+    <div class="update-date">Apr 22, 2026 • Day 4</div>
+    <div class="update-mile">Mile: 41.5</div>
+    <div class="update-text"> 
+    The last 3 days on trail have been amazing. I’ve felt surprisingly good considering the back issue and have been able to get back to the miles planned for this section. Short trail day today, though a slight regression with the ribs/back. Looking forward to a shower, resupply, and comfy bed for the night in Mount Laguna.
+    </div>
+  </div>
+
+  <div class="update-card">
     <div class="update-date">Apr 19, 2026 • Day 1</div>
     <div class="update-mile">Mile: 1.0</div>
     <div class="update-text"> I can’t believe that I'm actually hiking the PCT after 40+ years of dreaming about it. Day one was much shorter than planned, but the perfect way for me to start - one day, one mile, one trail without expectations. I am so grateful for this opportunity and for the support and encouragement of my wife, family, and friends. Thank you all!
