@@ -10,6 +10,14 @@ nav: updates
   <div class="update-mile">&emsp;Updates may not be posted daily.</div>
 
   <div class="update-card">
+    <div class="update-date">May 2, 2026 • Day 14</div>
+    <div class="update-mile">Mile: 179.4</div>
+    <div class="update-text"> 
+    First zero day! What a great town for a break. Got coffee and pastries with Michele and Niki before catching up on tasks as they went for a trail hike. Spent a good two hours filing the medical expense claim with the travel insurance company (ridiculously cumbersome) amid the hiker days fest and a great live musician who sounded a lot like Bob Seager. Ready to relax for the afternoon and enjoy an Italian dinner out.
+    </div>
+  </div>
+  
+  <div class="update-card">
     <div class="update-date">May 1, 2026 • Day 13</div>
     <div class="update-mile">Mile: 179.4</div>
     <div class="update-text"> 
