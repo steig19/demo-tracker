@@ -707,7 +707,7 @@
 
           <div class="pct-chip">
             <div class="label">Days</div>
-            <div class="value"><b>${stats.days.trail} trail · ${stats.days.nero} nero · ${stats.days.zero} zero</b></div>
+            <div class="value"><b>${stats.days.trail} trail · ${stats.days.zero} zero</b></div>
           </div>
           <div class="pct-daychips">${dayChip("Longest Day", stats.extremes.longestDay)}
           </div>
