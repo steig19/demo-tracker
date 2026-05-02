@@ -21,7 +21,7 @@ nav: updates
     <div class="update-date">Apr 30, 2026 • Day 12</div>
     <div class="update-mile">Mile: 168.5</div>
     <div class="update-text"> 
-    Early camp (1p) after hard day of climbing. I do like setting a distance range and then finding a single site with shade so I can finish my notes, updates, etc. and begin recovering. I’m in a good position to arrive in Idyllwild tomorrow for a 2-night stay!
+    Early camp (1p) after hard day of climbing. I do like setting a distance range and then finding a single site with shade early enought to finish my notes, updates, etc. and begin recovering. I’m in a good position to arrive in Idyllwild tomorrow for a 2-night stay!
     </div>
   </div>
 
