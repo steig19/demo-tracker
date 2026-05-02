@@ -13,7 +13,7 @@ nav: updates
     <div class="update-date">May 1, 2026 • Day 13</div>
     <div class="update-mile">Mile: 179.4</div>
     <div class="update-text"> 
-    Woke up early to a beautiful sunrise over Palm Springs. I needed a water refill for today’s hike so got an early start down the Apache Springs. After that it was all climbing up into The San Jacinto Wilderness. After topping out at 8,200 ft I began the long descent into Idyllwild on amazing, pine forest trails - probably the most challenging and fun hike I’ve had so far.
+    Woke up early to a beautiful sunrise over Palm Springs. I needed a water refill for today’s hike so got an early start down to Apache Springs. After that it was all climbing up into The San Jacinto Wilderness. After topping out at 8,200 ft I began the long descent into Idyllwild on amazing, pine forest trails - probably the most challenging and fun hike I’ve had so far.
     </div>
   </div>
 
