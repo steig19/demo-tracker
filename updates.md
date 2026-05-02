@@ -10,6 +10,38 @@ nav: updates
   <div class="update-mile">&emsp;Updates may not be posted daily.</div>
 
   <div class="update-card">
+    <div class="update-date">May 1, 2026 • Day 13</div>
+    <div class="update-mile">Mile: 179.4</div>
+    <div class="update-text"> 
+    Woke up early to a beautiful sunrise over Palm Springs. I needed a water refill for today’s hike so got an early start down the Apache Springs. After that it was all climbing up into The San Jacinto Wilderness. After topping out at 8,200 ft I began the long descent into Idyllwild on amazing, pine forest trails - probably the most challenging and fun hike I’ve had so far.
+    </div>
+  </div>
+
+  <div class="update-card">
+    <div class="update-date">Apr 30, 2026 • Day 12</div>
+    <div class="update-mile">Mile: 168.5</div>
+    <div class="update-text"> 
+    Early camp (1p) after hard day of climbing. I do like setting a distance range and then finding a single site with shade so I can finish my notes, updates, etc. and begin recovering. I’m in a good position to arrive in Idyllwild tomorrow for a 2-night stay!
+    </div>
+  </div>
+
+  <div class="update-card">
+    <div class="update-date">Apr 29, 2026 • Day 11</div>
+    <div class="update-mile">Mile: 152.6</div>
+    <div class="update-text"> 
+    Another long, hot day. I managed to make it to the Paradise Valley Cafe and got a delicious burger, fries, and IPA before walking the mile back to trail and setting up camp another mile further. 
+    </div>
+  </div>
+
+  <div class="update-card">
+    <div class="update-date">Apr 28, 2026 • Day 10</div>
+    <div class="update-mile">Mile: 132.2</div>
+    <div class="update-text"> 
+    Long day with lots of elevation.  Hiked with Mark most of the morning until the water tank refill (Mikes Place). Blue Moon, Dirt Nap , and lots of others were filling water and taking a break at Mike’s too. I decided to push a little further today and found a nicely secluded spot in a wash at 132.
+    </div>
+  </div>
+  
+  <div class="update-card">
     <div class="update-date">Apr 27, 2026 • Day 9</div>
     <div class="update-mile">Mile: 111.3</div>
     <div class="update-text"> 
@@ -17,7 +49,7 @@ nav: updates
     </div>
   </div>
 
-<div class="update-card">
+  <div class="update-card">
     <div class="update-date">Apr 25, 2026 • Day 7</div>
     <div class="update-mile">Mile: 77.1</div>
     <div class="update-text"> 
@@ -25,7 +57,7 @@ nav: updates
     </div>
   </div>
 
-<div class="update-card">
+  <div class="update-card">
     <div class="update-date">Apr 24, 2026 • Day 6</div>
     <div class="update-mile">Mile: 73.0</div>
     <div class="update-text"> 
@@ -33,7 +65,7 @@ nav: updates
     </div>
   </div>
 
-<div class="update-card">
+  <div class="update-card">
     <div class="update-date">Apr 23, 2026 • Day 5</div>
     <div class="update-mile">Mile: 56.2</div>
     <div class="update-text"> 
