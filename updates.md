@@ -10,6 +10,22 @@ nav: updates
   <div class="update-mile">&emsp;Updates may not be posted daily.</div>
 
   <div class="update-card">
+    <div class="update-date">May 4, 2026 • Day 16</div>
+    <div class="update-mile">Mile: 209.6</div>
+    <div class="update-text"> 
+    It was a long hike down the mountain this morning. Saw two snakes on the trail, a Rosy Boa (coastal morph), and a Southern Pacific Rattlesnake (from what I could research). The most challenging part of the hike was pushing through that last mile in a sandy wash with headwinds around 40 mph. Tonight I’m staying in a hostel in White Water, glad to be out of the high winds for the rest of the evening.
+    </div>
+  </div>
+
+  <div class="update-card">
+    <div class="update-date">May 3, 2026 • Day 15</div>
+    <div class="update-mile">Mile: 193.7</div>
+    <div class="update-text"> 
+    We packed up and got out early to get up the Devils Slide trail and rejoin the PCT. It was such a treat to have Niki and Michele join me for the first four miles - all climbing! The trail and views were amazing and I was able to reach my tent site by mid-day. Looking forward to a breezy, but good nights sleep on a foam pad in the Hilite tent.
+    </div>
+  </div>
+  
+  <div class="update-card">
     <div class="update-date">May 2, 2026 • Day 14</div>
     <div class="update-mile">Mile: 179.4</div>
     <div class="update-text"> 
